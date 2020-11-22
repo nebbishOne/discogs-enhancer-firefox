@@ -1,13 +1,13 @@
 {
   "manifest_version": 2,
-  "name": "Discogs Enhancer",
-  "short_name": "Discogs Enhancer",
+  "name": "Discogs Enhancer for Firefox",
+  "short_name": "Discogs Enhancer for Firefox",
   "description": "Adds a dark theme, block sellers, price comparisons, currency converter, configurable quick search, & more to Discogs!",
   "version": "2.21.3",
   "author": "Matthew Salcido",
-  "homepage_url": "https://www.discogs-enhancer.com",
+  "homepage_url": "https://github.com/nebbishOne/discogs-enhancer-firefox",
   "browser_action": {
-    "default_title": "Discogs Enhancer",
+    "default_title": "Discogs Enhancer for Firefox",
     "default_icon": "img/icon_128.png",
     "default_popup": "html/popup.html"
   },
