@@ -1,3 +1,94 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 28);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 28:
+/***/ (function(module, exports) {
+
 /**
  *
  * Discogs Enhancer
@@ -17,83 +108,79 @@ resourceLibrary.ready(() => {
     /**
      * Price conversion tests
      */
-    let
-        priceObjJPY = {},
+    let priceObjJPY = {},
         priceObjUSD = {},
         priceObjEUR = {},
         priceContainerJPY = [],
         priceContainerUSD = [],
         priceContainerEUR = [],
-
-      USD = {
-         base:'USD',
-         date:'2016-04-15',
-         rates:{
-            AUD: 1.2981,
-            BRL: 3.4905,
-            CAD: 1.2881,
-            CHF: 0.96765,
-            GBP: 0.7052,
-            JPY: 108.92,
-            MXN: 17.54,
-            NZD: 1.4475,
-            SEK: 8.1445,
-            ZAR: 14.571,
-            EUR: 0.88621
-         }
-      },
-
-      EUR = {
-        base: 'EUR',
-        date: '2016-04-15',
-        rates: {
-          AUD: 1.4648,
-          BRL: 3.9387,
-          CAD: 1.4535,
-          CHF: 1.0919,
-          GBP: 0.79575,
-          JPY: 122.91,
-          MXN: 19.7927,
-          NZD: 1.6334,
-          SEK: 9.1902,
-          USD: 1.1284,
-          ZAR: 16.4424
-        }
-      },
-
-      JPY = {
-        base: 'JPY',
-        date: '2016-04-15',
-        rates: {
-          AUD: 0.011918,
-          BRL: 0.032045,
-          CAD: 0.011826,
-          CHF: 0.0088837,
-          GBP: 0.0064742,
-          MXN: 0.16103,
-          NZD: 0.013289,
-          SEK: 0.074772,
-          USD: 0.0091807,
-          ZAR: 0.13378,
-          EUR: 0.008136
-        }
-      };
+        USD = {
+      base: 'USD',
+      date: '2016-04-15',
+      rates: {
+        AUD: 1.2981,
+        BRL: 3.4905,
+        CAD: 1.2881,
+        CHF: 0.96765,
+        GBP: 0.7052,
+        JPY: 108.92,
+        MXN: 17.54,
+        NZD: 1.4475,
+        SEK: 8.1445,
+        ZAR: 14.571,
+        EUR: 0.88621
+      }
+    },
+        EUR = {
+      base: 'EUR',
+      date: '2016-04-15',
+      rates: {
+        AUD: 1.4648,
+        BRL: 3.9387,
+        CAD: 1.4535,
+        CHF: 1.0919,
+        GBP: 0.79575,
+        JPY: 122.91,
+        MXN: 19.7927,
+        NZD: 1.6334,
+        SEK: 9.1902,
+        USD: 1.1284,
+        ZAR: 16.4424
+      }
+    },
+        JPY = {
+      base: 'JPY',
+      date: '2016-04-15',
+      rates: {
+        AUD: 0.011918,
+        BRL: 0.032045,
+        CAD: 0.011826,
+        CHF: 0.0088837,
+        GBP: 0.0064742,
+        MXN: 0.16103,
+        NZD: 0.013289,
+        SEK: 0.074772,
+        USD: 0.0091807,
+        ZAR: 0.13378,
+        EUR: 0.008136
+      }
+    };
 
     function resetPriceObjs() {
 
       priceObjJPY = {
-         mediaCondition: 'Mint (M)',
-         price: '¥1000'
+        mediaCondition: 'Mint (M)',
+        price: '¥1000'
       };
 
       priceObjUSD = {
-         mediaCondition: 'Mint (M)',
-         price: '$10.00'
+        mediaCondition: 'Mint (M)',
+        price: '$10.00'
       };
 
       priceObjEUR = {
-         mediaCondition: 'Mint (M)',
-         price: '€10.00'
+        mediaCondition: 'Mint (M)',
+        price: '€10.00'
       };
 
       priceContainerJPY = [priceObjJPY];
@@ -101,9 +188,7 @@ resourceLibrary.ready(() => {
       priceContainerEUR = [priceObjEUR];
     }
 
-
     console.log('/// Testing convertPrices method ///');
-
 
     function testCurrencyConversion(source, language, exchangeObj, expectedValue) {
 
@@ -113,15 +198,14 @@ resourceLibrary.ready(() => {
 
       let convert = resourceLibrary.convertPrices(source, exchangeObj);
 
-      let result = (convert[0].convertedPrice === expectedValue);
+      let result = convert[0].convertedPrice === expectedValue;
 
       if (result) {
 
         console.log('%c PASSED ', 'color: limegreen', 'Price conversion successful.');
-
       } else {
 
-        console.log( '%c FAILED ', 'color: deeppink', source[0].price);
+        console.log('%c FAILED ', 'color: deeppink', source[0].price);
       }
     }
 
@@ -133,23 +217,19 @@ resourceLibrary.ready(() => {
     resetPriceObjs();
     testCurrencyConversion(priceContainerUSD, 'en', JPY, 1089.2415611010053);
 
-
     /* USD to EUR */
     resetPriceObjs();
     testCurrencyConversion(priceContainerUSD, 'en', EUR, 8.862105636299184);
 
-
     /* EUR to USD */
     resetPriceObjs();
     testCurrencyConversion(priceContainerEUR, 'en', USD, 11.284007176628563);
-
 
     /**
      * localizeSuggestion tests
      */
 
     console.log('/// Testing localizeSuggestion method ///');
-
 
     function testLocalization(symbol, price, currency, language, expected) {
 
@@ -158,10 +238,9 @@ resourceLibrary.ready(() => {
       if (result === expected) {
 
         console.log('%c PASSED ', 'color: limegreen', language.toUpperCase() + ' localizeSuggestion: ', result);
-
       } else {
 
-        console.log( '%c FAILED ', 'color: deeppink', language.toUpperCase() + ' localizeSuggestion should be ' + expected, 'value returned was: ', result);
+        console.log('%c FAILED ', 'color: deeppink', language.toUpperCase() + ' localizeSuggestion should be ' + expected, 'value returned was: ', result);
       }
     }
 
@@ -189,7 +268,6 @@ resourceLibrary.ready(() => {
 
     console.log('/// Testing sanitizePrices method ///');
 
-
     function testSanitizer(array, expected) {
 
       resourceLibrary.sanitizePrices(array);
@@ -197,23 +275,21 @@ resourceLibrary.ready(() => {
       if (array[0].sanitizedPrice === expected && typeof array[0].sanitizedPrice === 'string') {
 
         console.log('%c PASSED ', 'color: limegreen', 'sanitized price: ', array[0].sanitizedPrice, 'expected: ', expected);
-
       } else {
 
-        console.log( '%c FAILED ', 'color: deeppink', 'sanitized price: ', array[0].sanitizedPrice, 'should have been: ', expected);
+        console.log('%c FAILED ', 'color: deeppink', 'sanitized price: ', array[0].sanitizedPrice, 'should have been: ', expected);
       }
     }
 
-    testSanitizer([{price: '¥1,000'}], '1000');
-    testSanitizer([{price: '10,00 €'}], '1000');
-    testSanitizer([{price: '$10.99'}], '1099');
-    testSanitizer([{price: 'US$ 10.99'}], '1099');
-    testSanitizer([{price: '$AU 54,96'}], '5496');
-    testSanitizer([{price: '£157,000.65'}], '15700065');
-    testSanitizer([{price: 'JP¥1&nbsp;000'}], '1000');
-    testSanitizer([{price: 'JP¥1 000'}], '1000');
-    testSanitizer([{price: '$0.96'}], '096');
-
+    testSanitizer([{ price: '¥1,000' }], '1000');
+    testSanitizer([{ price: '10,00 €' }], '1000');
+    testSanitizer([{ price: '$10.99' }], '1099');
+    testSanitizer([{ price: 'US$ 10.99' }], '1099');
+    testSanitizer([{ price: '$AU 54,96' }], '5496');
+    testSanitizer([{ price: '£157,000.65' }], '15700065');
+    testSanitizer([{ price: 'JP¥1&nbsp;000' }], '1000');
+    testSanitizer([{ price: 'JP¥1 000' }], '1000');
+    testSanitizer([{ price: '$0.96' }], '096');
 
     /* print symbol tests */
 
@@ -249,18 +325,15 @@ resourceLibrary.ready(() => {
       if (count === 14) {
 
         console.log('%c PASSED ', 'color: limegreen', 'All printSymbols were correctly retrieved');
-
       } else {
 
         console.log('%c FAILED ', 'color: deeppink', 'Symbols were not retrieved correctly for language: ', prop);
       }
     }
 
-
     /* match symbol tests */
 
     console.log('/// Testing match symbol method ///');
-
 
     function testSymbols(obj, language, exchangeName) {
 
@@ -269,7 +342,6 @@ resourceLibrary.ready(() => {
       if (obj[0].exchangeName === exchangeName) {
 
         return console.log('%c PASSED ', 'color: limegreen', 'Exchange Name found for ' + obj[0].exchangeName + ' in ' + language.toUpperCase());
-
       } else {
 
         return console.log('%c FAILED ', 'color: deeppink', 'Exchange name for ' + obj[0].price + ' was not found in locale ' + language.toUpperCase());
@@ -277,87 +349,87 @@ resourceLibrary.ready(() => {
     }
 
     // EN tests
-    testSymbols([{price: 'A$20.00'}], 'en', 'AUD');
-    testSymbols([{price: '$20.00'}], 'en', 'USD');
-    testSymbols([{price: '€20.00'}], 'en', 'EUR');
-    testSymbols([{price: '£20.00'}], 'en', 'GBP');
-    testSymbols([{price: 'CA$20.00'}], 'en', 'CAD');
-    testSymbols([{price: '¥2000'}], 'en', 'JPY');
-    testSymbols([{price: 'R$20.00'}], 'en', 'BRL');
-    testSymbols([{price: 'CHF20.00'}], 'en', 'CHF');
-    testSymbols([{price: 'SEK20.00'}], 'en', 'SEK');
-    testSymbols([{price: 'NZ$20.00'}], 'en', 'NZD');
-    testSymbols([{price: 'MX$20.00'}], 'en', 'MXN');
-    testSymbols([{price: 'ZAR20.00'}], 'en', 'ZAR');
+    testSymbols([{ price: 'A$20.00' }], 'en', 'AUD');
+    testSymbols([{ price: '$20.00' }], 'en', 'USD');
+    testSymbols([{ price: '€20.00' }], 'en', 'EUR');
+    testSymbols([{ price: '£20.00' }], 'en', 'GBP');
+    testSymbols([{ price: 'CA$20.00' }], 'en', 'CAD');
+    testSymbols([{ price: '¥2000' }], 'en', 'JPY');
+    testSymbols([{ price: 'R$20.00' }], 'en', 'BRL');
+    testSymbols([{ price: 'CHF20.00' }], 'en', 'CHF');
+    testSymbols([{ price: 'SEK20.00' }], 'en', 'SEK');
+    testSymbols([{ price: 'NZ$20.00' }], 'en', 'NZD');
+    testSymbols([{ price: 'MX$20.00' }], 'en', 'MXN');
+    testSymbols([{ price: 'ZAR20.00' }], 'en', 'ZAR');
 
     // ES tests
-    testSymbols([{price: '20,00 US$'}], 'es', 'USD');
-    testSymbols([{price: '20,00 AU$'}], 'es', 'AUD');
-    testSymbols([{price: 'JP¥20.00'}], 'es', 'JPY');
-    testSymbols([{price: '20,00 €'}], 'es', 'EUR');
-    testSymbols([{price: '20,00 £'}], 'es', 'GBP');
-    testSymbols([{price: '20,00 CA$'}], 'es', 'CAD');
-    testSymbols([{price: '20,00 R$'}], 'es', 'BRL');
-    testSymbols([{price: '20,00 CHF'}], 'es', 'CHF');
-    testSymbols([{price: '20,00 SEK'}], 'es', 'SEK');
-    testSymbols([{price: '20,00 NZ$'}], 'es', 'NZD');
-    testSymbols([{price: '20,00 MX$'}], 'es', 'MXN');
-    testSymbols([{price: '20,00 ZAR'}], 'es', 'ZAR');
+    testSymbols([{ price: '20,00 US$' }], 'es', 'USD');
+    testSymbols([{ price: '20,00 AU$' }], 'es', 'AUD');
+    testSymbols([{ price: 'JP¥20.00' }], 'es', 'JPY');
+    testSymbols([{ price: '20,00 €' }], 'es', 'EUR');
+    testSymbols([{ price: '20,00 £' }], 'es', 'GBP');
+    testSymbols([{ price: '20,00 CA$' }], 'es', 'CAD');
+    testSymbols([{ price: '20,00 R$' }], 'es', 'BRL');
+    testSymbols([{ price: '20,00 CHF' }], 'es', 'CHF');
+    testSymbols([{ price: '20,00 SEK' }], 'es', 'SEK');
+    testSymbols([{ price: '20,00 NZ$' }], 'es', 'NZD');
+    testSymbols([{ price: '20,00 MX$' }], 'es', 'MXN');
+    testSymbols([{ price: '20,00 ZAR' }], 'es', 'ZAR');
 
     // DE tests
-    testSymbols([{price: '20,00 $'}], 'de', 'USD');
-    testSymbols([{price: '20,00 A$'}], 'de', 'AUD');
-    testSymbols([{price: '¥2.000'}], 'de', 'JPY');
-    testSymbols([{price: '20,00 €'}], 'de', 'EUR');
-    testSymbols([{price: '20,00 £'}], 'de', 'GBP');
-    testSymbols([{price: '20,00 CA$'}], 'de', 'CAD');
-    testSymbols([{price: '20,00 R$'}], 'de', 'BRL');
-    testSymbols([{price: '20,00 CHF'}], 'de', 'CHF');
-    testSymbols([{price: '20,00 SEK'}], 'de', 'SEK');
-    testSymbols([{price: '20,00 NZ$'}], 'de', 'NZD');
-    testSymbols([{price: '20,00 ZAR'}], 'de', 'ZAR');
+    testSymbols([{ price: '20,00 $' }], 'de', 'USD');
+    testSymbols([{ price: '20,00 A$' }], 'de', 'AUD');
+    testSymbols([{ price: '¥2.000' }], 'de', 'JPY');
+    testSymbols([{ price: '20,00 €' }], 'de', 'EUR');
+    testSymbols([{ price: '20,00 £' }], 'de', 'GBP');
+    testSymbols([{ price: '20,00 CA$' }], 'de', 'CAD');
+    testSymbols([{ price: '20,00 R$' }], 'de', 'BRL');
+    testSymbols([{ price: '20,00 CHF' }], 'de', 'CHF');
+    testSymbols([{ price: '20,00 SEK' }], 'de', 'SEK');
+    testSymbols([{ price: '20,00 NZ$' }], 'de', 'NZD');
+    testSymbols([{ price: '20,00 ZAR' }], 'de', 'ZAR');
 
     // FR tests
-    testSymbols([{price: '20,00 $US'}], 'fr', 'USD');
-    testSymbols([{price: '20,00 $AU'}], 'fr', 'AUD');
-    testSymbols([{price: '¥JP2 000'}], 'fr', 'JPY');
-    testSymbols([{price: '20,00 €'}], 'fr', 'EUR');
-    testSymbols([{price: '20,00 £UK'}], 'fr', 'GBP');
-    testSymbols([{price: '20,00 $CA'}], 'fr', 'CAD');
-    testSymbols([{price: '20,00 R$'}], 'fr', 'BRL');
-    testSymbols([{price: '20,00 CHF'}], 'fr', 'CHF');
-    testSymbols([{price: '20,00 SEK'}], 'fr', 'SEK');
-    testSymbols([{price: '20,00 $NZ'}], 'fr', 'NZD');
-    testSymbols([{price: '20,00 MX$'}], 'fr', 'MXN');
-    testSymbols([{price: '20,00 ZAR'}], 'fr', 'ZAR');
+    testSymbols([{ price: '20,00 $US' }], 'fr', 'USD');
+    testSymbols([{ price: '20,00 $AU' }], 'fr', 'AUD');
+    testSymbols([{ price: '¥JP2 000' }], 'fr', 'JPY');
+    testSymbols([{ price: '20,00 €' }], 'fr', 'EUR');
+    testSymbols([{ price: '20,00 £UK' }], 'fr', 'GBP');
+    testSymbols([{ price: '20,00 $CA' }], 'fr', 'CAD');
+    testSymbols([{ price: '20,00 R$' }], 'fr', 'BRL');
+    testSymbols([{ price: '20,00 CHF' }], 'fr', 'CHF');
+    testSymbols([{ price: '20,00 SEK' }], 'fr', 'SEK');
+    testSymbols([{ price: '20,00 $NZ' }], 'fr', 'NZD');
+    testSymbols([{ price: '20,00 MX$' }], 'fr', 'MXN');
+    testSymbols([{ price: '20,00 ZAR' }], 'fr', 'ZAR');
 
     // IT tests
-    testSymbols([{price: 'US$ 20,00'}], 'it', 'USD');
-    testSymbols([{price: 'A$ 20,00'}], 'it', 'AUD');
-    testSymbols([{price: 'JP¥2.000'}], 'it', 'JPY');
-    testSymbols([{price: '€ 20,00'}], 'it', 'EUR');
-    testSymbols([{price: '£ 20,00'}], 'it', 'GBP');
-    testSymbols([{price: 'CA$ 20,00'}], 'it', 'CAD');
-    testSymbols([{price: 'R$ 20,00'}], 'it', 'BRL');
-    testSymbols([{price: 'CHF 20,00'}], 'it', 'CHF');
-    testSymbols([{price: 'SEK 20,00'}], 'it', 'SEK');
-    testSymbols([{price: 'NZ$ 20,00'}], 'it', 'NZD');
-    testSymbols([{price: 'MX$ 20,00'}], 'it', 'MXN');
-    testSymbols([{price: 'ZAR 20,00'}], 'it', 'ZAR');
+    testSymbols([{ price: 'US$ 20,00' }], 'it', 'USD');
+    testSymbols([{ price: 'A$ 20,00' }], 'it', 'AUD');
+    testSymbols([{ price: 'JP¥2.000' }], 'it', 'JPY');
+    testSymbols([{ price: '€ 20,00' }], 'it', 'EUR');
+    testSymbols([{ price: '£ 20,00' }], 'it', 'GBP');
+    testSymbols([{ price: 'CA$ 20,00' }], 'it', 'CAD');
+    testSymbols([{ price: 'R$ 20,00' }], 'it', 'BRL');
+    testSymbols([{ price: 'CHF 20,00' }], 'it', 'CHF');
+    testSymbols([{ price: 'SEK 20,00' }], 'it', 'SEK');
+    testSymbols([{ price: 'NZ$ 20,00' }], 'it', 'NZD');
+    testSymbols([{ price: 'MX$ 20,00' }], 'it', 'MXN');
+    testSymbols([{ price: 'ZAR 20,00' }], 'it', 'ZAR');
 
     // JA tests
-    testSymbols([{price: '$20.00'}], 'ja', 'USD');
-    testSymbols([{price: 'A$20.00'}], 'ja', 'AUD');
-    testSymbols([{price: '¥2000'}], 'ja', 'JPY');
-    testSymbols([{price: '€20.00'}], 'ja', 'EUR');
-    testSymbols([{price: '£20.00'}], 'ja', 'GBP');
-    testSymbols([{price: 'CA$20.00'}], 'ja', 'CAD');
-    testSymbols([{price: 'NZ$20.00'}], 'ja', 'NZD');
-    testSymbols([{price: 'R$20.00'}], 'ja', 'BRL');
-    testSymbols([{price: 'CHF20.00'}], 'ja', 'CHF');
-    testSymbols([{price: 'SEK20.00'}], 'ja', 'SEK');
-    testSymbols([{price: 'MX$20.00'}], 'ja', 'MXN');
-    testSymbols([{price: 'ZAR20.00'}], 'ja', 'ZAR');
+    testSymbols([{ price: '$20.00' }], 'ja', 'USD');
+    testSymbols([{ price: 'A$20.00' }], 'ja', 'AUD');
+    testSymbols([{ price: '¥2000' }], 'ja', 'JPY');
+    testSymbols([{ price: '€20.00' }], 'ja', 'EUR');
+    testSymbols([{ price: '£20.00' }], 'ja', 'GBP');
+    testSymbols([{ price: 'CA$20.00' }], 'ja', 'CAD');
+    testSymbols([{ price: 'NZ$20.00' }], 'ja', 'NZD');
+    testSymbols([{ price: 'R$20.00' }], 'ja', 'BRL');
+    testSymbols([{ price: 'CHF20.00' }], 'ja', 'CHF');
+    testSymbols([{ price: 'SEK20.00' }], 'ja', 'SEK');
+    testSymbols([{ price: 'MX$20.00' }], 'ja', 'MXN');
+    testSymbols([{ price: 'ZAR20.00' }], 'ja', 'ZAR');
 
     // Check langauge method
     console.log('/// Testing language method ///');
@@ -388,3 +460,7 @@ resourceLibrary.ready(() => {
 
   //TODO write tests for isJPY prop
 });
+
+/***/ })
+
+/******/ });

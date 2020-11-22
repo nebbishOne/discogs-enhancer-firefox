@@ -1,3 +1,96 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 35);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 35:
+/***/ (function(module, exports) {
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 /**
  *
  * Discogs Enhancer
@@ -10,8 +103,66 @@
 
 rl.ready(() => {
 
-  let
-      baseCurrency,
+  /**
+   * Fetches the current exchange rates from fixer.io based on the
+   * value set in the converter.
+   * @method getConverterRates
+   * @param {string} base The exchange name of the currency
+   * @returns {object}
+   */
+  let getConverterRates = (() => {
+    var _ref = _asyncToGenerator(function* (base) {
+
+      let url = `https://discogs-enhancer.com/rates?base=${base}`;
+
+      setUIforUpdating(true, 'Updating...');
+
+      try {
+
+        let response = yield fetch(url),
+            data = yield response.json();
+
+        data.lastChecked = now;
+
+        rl.setPreference('converterRates', data);
+        rates = rl.getPreference('converterRates');
+
+        setUIforUpdating(false, '');
+        convertCurrency();
+
+        if (debug) {
+
+          console.log(' ');
+          console.log('*** Converter Rates ***');
+          console.log('Date: ', rates.date);
+          console.log('Base: ', rates.base);
+          console.log(rates.rates);
+        }
+      } catch (err) {
+
+        console.log('Could not get exchange rates for currency converter', err);
+
+        input.placeholder = '';
+        errors.textContent = 'Error. Please try again later.';
+      }
+    });
+
+    return function getConverterRates(_x) {
+      return _ref.apply(this, arguments);
+    };
+  })();
+
+  /**
+   * Returns the index number from the exchangeList array
+   * that matches the user's currency value which is used
+   * to look up the currency symbol to display in the
+   * converter.
+   * @method getExchangeSymbolIndex
+   * @returns {integer}
+   */
+
+
+  let baseCurrency,
       debug = rl.options.debug(),
       errors,
       input,
@@ -20,10 +171,11 @@ rl.ready(() => {
       now = Date.now(),
       output,
       rates,
-      twoHours = (60 * 1000) * 120,
+      twoHours = 60 * 1000 * 120,
       userCurrency,
-      //
-      markup = `<div class="currency-converter">
+
+  //
+  markup = `<div class="currency-converter">
                   <div class="toggle">¥ € $</div>
                   <div class="top">
                     <div class="ui-wrap">
@@ -97,7 +249,7 @@ rl.ready(() => {
    */
   function clearErrors() {
 
-    if ( baseCurrency !== '-' && userCurrency !== '-' ) {
+    if (baseCurrency !== '-' && userCurrency !== '-') {
       errors.textContent = '';
     }
   }
@@ -114,7 +266,7 @@ rl.ready(() => {
         symbolIndex = getExchangeSymbolIndex();
 
     // Make sure stuff is selected
-    if ( baseCurrency.value === '-' || userCurrency.value === '-' ) {
+    if (baseCurrency.value === '-' || userCurrency.value === '-') {
 
       input.value = '';
       output.textContent = '';
@@ -123,21 +275,25 @@ rl.ready(() => {
     }
 
     // Calculate the result
-    result = ( input.value * rates.rates[userCurrency.value] ).toFixed(2);
+    result = (input.value * rates.rates[userCurrency.value]).toFixed(2);
     // Grab correct symbol from printSymbol array
     symbol = rl.printSymbol[language][symbolIndex];
     // Voilà
     output.textContent = rl.localizeSuggestion(symbol, result, userCurrency.value, language);
 
     // Let's be reasonable about our conversion values
-    if ( input.value.length > 10 || input.value > 9999999 ) {
+    if (input.value.length > 10 || input.value > 9999999) {
 
       input.value = '';
       // ¯\_(ツ)_/¯
-      setTimeout(() => { output.textContent = '\u00AF\u005C\u005F\u0028\u30C4\u0029\u005F\u002F\u00AF'; }, 0);
+      setTimeout(() => {
+        output.textContent = '\u00AF\u005C\u005F\u0028\u30C4\u0029\u005F\u002F\u00AF';
+      }, 0);
     }
 
-    if ( input.value === '' ) { output.textContent = ''; }
+    if (input.value === '') {
+      output.textContent = '';
+    }
   }
 
   /**
@@ -171,71 +327,18 @@ rl.ready(() => {
       input.value = text;
       convertCurrency();
 
-      if ( val <= 0 && val.length < 1 ) {
+      if (val <= 0 && val.length < 1) {
 
         clearInterval(disolve);
       }
     }, 30);
-  }
-
-  /**
-   * Fetches the current exchange rates from fixer.io based on the
-   * value set in the converter.
-   * @method getConverterRates
-   * @param {string} base The exchange name of the currency
-   * @returns {object}
-   */
-  async function getConverterRates(base) {
-
-    let url = `https://discogs-enhancer.com/rates?base=${base}`;
-
-    setUIforUpdating(true, 'Updating...');
-
-    try {
-
-      let response = await fetch(url),
-          data = await response.json();
-
-      data.lastChecked = now;
-
-      rl.setPreference('converterRates', data);
-      rates = rl.getPreference('converterRates');
-
-      setUIforUpdating(false, '');
-      convertCurrency();
-
-      if ( debug ) {
-
-        console.log(' ');
-        console.log('*** Converter Rates ***');
-        console.log('Date: ', rates.date);
-        console.log('Base: ', rates.base);
-        console.log(rates.rates);
-      }
-    } catch ( err ) {
-
-      console.log('Could not get exchange rates for currency converter', err);
-
-      input.placeholder = '';
-      errors.textContent = 'Error. Please try again later.';
-    }
-  }
-
-  /**
-   * Returns the index number from the exchangeList array
-   * that matches the user's currency value which is used
-   * to look up the currency symbol to display in the
-   * converter.
-   * @method getExchangeSymbolIndex
-   * @returns {integer}
-   */
-  function getExchangeSymbolIndex() {
+  }function getExchangeSymbolIndex() {
 
     let index;
 
     rl.exchangeList.forEach((exchangeName, i) => {
 
-      if ( exchangeName === userCurrency.value ) {
+      if (exchangeName === userCurrency.value) {
         index = i;
       }
     });
@@ -263,7 +366,7 @@ rl.ready(() => {
 
     [...select.options].forEach(opt => {
 
-      if ( opt.value === value ) {
+      if (opt.value === value) {
 
         opt.selected = true;
       }
@@ -293,9 +396,7 @@ rl.ready(() => {
 
     let converter = document.querySelector('.currency-converter');
 
-    return converter.classList.contains('show-converter')
-            ? converter.classList.remove('show-converter')
-            : converter.classList.add('show-converter');
+    return converter.classList.contains('show-converter') ? converter.classList.remove('show-converter') : converter.classList.add('show-converter');
   }
 
   // ========================================================
@@ -313,10 +414,9 @@ rl.ready(() => {
   errors = document.querySelector('#errors');
 
   // Check for existing rates
-  if ( !rl.getPreference('converterRates') ) {
+  if (!rl.getPreference('converterRates')) {
 
     rates = null;
-
   } else {
 
     rates = rl.getPreference('converterRates');
@@ -324,7 +424,7 @@ rl.ready(() => {
     selectOption(baseCurrency, rates.base);
   }
   // Remember state for #userCurrency
-  if ( lastUsedCurrency ) {
+  if (lastUsedCurrency) {
     selectOption(userCurrency, lastUsedCurrency);
   } else {
     selectOption(userCurrency, 'USD');
@@ -334,14 +434,14 @@ rl.ready(() => {
   disableOption(baseCurrency, '-');
   // Disable the matching currency in the other select box
   // so that you can't compare EUR to EUR, etc...
-  if ( rates && rates.base ) {
+  if (rates && rates.base) {
     disableOption(userCurrency, rates.base);
   }
 
   // Check to see how old the rates are and update them if needed
-  if ( rates && now > rates.lastChecked + twoHours || rates && !rates.timestamp ) {
+  if (rates && now > rates.lastChecked + twoHours || rates && !rates.timestamp) {
 
-    if ( debug ) {
+    if (debug) {
 
       console.log(' ');
       console.log(' *** Auto-updating Currency Converter rates *** ');
@@ -369,7 +469,9 @@ rl.ready(() => {
 
     let hasDecimal = input.value.includes('.');
     // Strip decimal to stop Chrome from console.warning on invalid number
-    if ( hasDecimal ) { input.value = input.value.replace('.', ''); }
+    if (hasDecimal) {
+      input.value = input.value.replace('.', '');
+    }
     // Delete the value from the input in an animated fashion
     disolveAnimation();
   });
@@ -381,7 +483,7 @@ rl.ready(() => {
         userValue = getOptionValue(userCurrency);
 
     // Reset #userCurrency if #baseCurrency is the same
-    if ( baseValue === userValue ) {
+    if (baseValue === userValue) {
       userCurrency.options.selectedIndex = 0;
       return;
     }
@@ -403,7 +505,7 @@ rl.ready(() => {
         userValue = getOptionValue(userCurrency);
 
     // Reset #userCurrency if #baseCurrency is the same
-    if ( baseValue === userValue ) {
+    if (baseValue === userValue) {
       userCurrency.options.selectedIndex = 0;
     }
 
@@ -427,3 +529,7 @@ rl.ready(() => {
     rl.setPreference('lastUsedCurrency', getOptionValue(userCurrency));
   });
 });
+
+/***/ })
+
+/******/ });

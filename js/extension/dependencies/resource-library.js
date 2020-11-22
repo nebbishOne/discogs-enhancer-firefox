@@ -1,3 +1,94 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 26);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 26:
+/***/ (function(module, exports) {
+
 /**
  *
  * Discogs Enhancer
@@ -29,7 +120,7 @@
   }
  */
 
-(function() {
+(function () {
   window.resourceLibrary = window.rl = {
 
     /**
@@ -37,22 +128,19 @@
      * @param    {string} message
      * @returns   {undefined}
      */
-    appendNotice: function(message, color) {
+    appendNotice: function (message, color) {
 
       let notice = document.createElement('div');
 
       notice.id = 'deAlertNotice';
-      notice.style = 'background-color:' + color + ' !important;' +
-                     'text-align: center;' +
-                     'color: black !important;' +
-                     'font-size: 20px;' +
-                     'padding: 20px;' +
-                     'cursor: pointer;';
+      notice.style = 'background-color:' + color + ' !important;' + 'text-align: center;' + 'color: black !important;' + 'font-size: 20px;' + 'padding: 20px;' + 'cursor: pointer;';
 
       notice.textContent = message;
 
       document.getElementById('site_headers_super_wrap').appendChild(notice);
-      document.getElementById('deAlertNotice').addEventListener('click', function() { this.remove(); });
+      document.getElementById('deAlertNotice').addEventListener('click', function () {
+        this.remove();
+      });
 
       setTimeout(() => {
         document.getElementById('deAlertNotice').remove();
@@ -65,7 +153,7 @@
      * @param {String} rules - The CSS markup
      * @returns {undefined}
      */
-    attachCss: function(id, rules) {
+    attachCss: function (id, rules) {
       let css = document.createElement('style'),
           fragment = document.createDocumentFragment();
 
@@ -88,9 +176,7 @@
        * The border that separates prices from suggestion comparisons
        * @type {string}
        */
-      border: 'style="margin-top: 10px !important;' +
-              'padding-top: 10px !important;' +
-              'border-top: 1px dotted gray !important;"',
+      border: 'style="margin-top: 10px !important;' + 'padding-top: 10px !important;' + 'border-top: 1px dotted gray !important;"',
 
       /**
        * Displayed when Discogs has no price suggestion data on an item
@@ -117,17 +203,7 @@
        * not have seller privileges
        * @type {string}
        */
-      pleaseRegister: '<span class="converted_price de-suggested-price" ' +
-                      'style="margin-top: 10px !important; ' +
-                      'border-top: 1px dotted gray !important; '+
-                      'padding-top: 5px !important;">' +
-                      'Discogs Enhancer:' +
-                      '<br>Please ' +
-                      '<a href="/settings/seller/">' +
-                      'register as <br>a Seller ' +
-                      '</a>' +
-                      'to see <br>Price Suggestions' +
-                      '</span>'
+      pleaseRegister: '<span class="converted_price de-suggested-price" ' + 'style="margin-top: 10px !important; ' + 'border-top: 1px dotted gray !important; ' + 'padding-top: 5px !important;">' + 'Discogs Enhancer:' + '<br>Please ' + '<a href="/settings/seller/">' + 'register as <br>a Seller ' + '</a>' + 'to see <br>Price Suggestions' + '</span>'
     },
 
     /**
@@ -136,43 +212,42 @@
      * @method callOtherMarketplaceFeatures
      * @returns {undefined}
      */
-    callOtherMarketplaceFeatures: function() {
+    callOtherMarketplaceFeatures: function () {
 
       let blockList = rl.getPreference('blockList'),
           favoriteList = rl.getPreference('favoriteList'),
           sellerNames = rl.getPreference('sellerNames');
 
       // apply Marketplace Highlights
-      if ( window.applyStyles ) window.applyStyles();
+      if (window.applyStyles) window.applyStyles();
       // apply price comparisons
-      if ( window.injectPriceLinks ) window.injectPriceLinks();
+      if (window.injectPriceLinks) window.injectPriceLinks();
 
       // apply price comparisons
-      if ( window.appendPrices ) {
+      if (window.appendPrices) {
         window.releasePricesInit(); // only used when viewing a single release
         window.appendPrices();
       }
 
       // Hide/tag sellers in marketplace
-      if ( blockList && blockList.hide === 'global' && window.blockSellers ||
-           blockList && blockList.hide === 'marketplace' && window.blockSellers ) {
+      if (blockList && blockList.hide === 'global' && window.blockSellers || blockList && blockList.hide === 'marketplace' && window.blockSellers) {
 
         window.blockSellers('hide');
       }
 
-      if ( blockList && blockList.hide === 'tag' && window.blockSellers ) {
+      if (blockList && blockList.hide === 'tag' && window.blockSellers) {
         window.blockSellers('tag');
       }
 
       // Favorite sellers
-      if ( favoriteList && window.favoriteSellers ) window.favoriteSellers();
+      if (favoriteList && window.favoriteSellers) window.favoriteSellers();
       // filter marketplace media condition
-      if ( window.filterMediaCondition ) window.filterMediaCondition();
+      if (window.filterMediaCondition) window.filterMediaCondition();
       // filter marketplace sleeve condition
-      if ( window.filterSleeveCondition ) window.filterSleeveCondition();
+      if (window.filterSleeveCondition) window.filterSleeveCondition();
 
       // Filter shipping country
-      if ( window.filterCountries ) {
+      if (window.filterCountries) {
         let countryList = rl.getPreference('countryList'),
             include = countryList.include,
             useCurrency = countryList.currency;
@@ -180,19 +255,19 @@
       }
 
       // Tag sellers by reputation
-      if ( window.sellersRep ) window.sellersRep();
+      if (window.sellersRep) window.sellersRep();
       // Release ratings
-      if ( window.insertRatingsLink ) window.insertRatingsLink();
+      if (window.insertRatingsLink) window.insertRatingsLink();
       // Remove from wantlist
-      if ( window.insertRemoveLinks ) window.insertRemoveLinks();
+      if (window.insertRemoveLinks) window.insertRemoveLinks();
       // Seller Items in Cart
-      if ( window.sellerItemsInCart ) window.sellerItemsInCart(sellerNames);
+      if (window.sellerItemsInCart) window.sellerItemsInCart(sellerNames);
       // Filter Unavailable Items
-      if ( window.filterUnavailable ) window.filterUnavailable();
+      if (window.filterUnavailable) window.filterUnavailable();
       // Filter Prices
-      if ( window.filterPrices ) window.filterPrices();
+      if (window.filterPrices) window.filterPrices();
       // Demand Index
-      if ( window.mpDemandIndex ) window.mpDemandIndex();
+      if (window.mpDemandIndex) window.mpDemandIndex();
       // Open links in new tabs
       window.modifyLinks();
     },
@@ -203,29 +278,29 @@
      * @param    {object} data the exchange rates data
      * @returns   {array}
      */
-    convertPrices: function(source, data) {
+    convertPrices: function (source, data) {
 
-      if ( !data ) {
+      if (!data) {
         // Current rates from discogs-enhancer.com
         data = this.getPreference('exchangeRates').data;
 
-        if ( data === null ) {
+        if (data === null) {
           console.log('Currency has recently been changed. Please refresh the page one more time.');
         }
       }
 
       source.forEach(obj => {
 
-        if ( !obj.isJPY ) {
-          obj.sanitizedPrice = Number(obj.sanitizedPrice/100).toFixed(2);
+        if (!obj.isJPY) {
+          obj.sanitizedPrice = Number(obj.sanitizedPrice / 100).toFixed(2);
         }
 
-        for ( let h = 0; h < source.length; h++ ) {
+        for (let h = 0; h < source.length; h++) {
 
-          if ( !data.rates[obj.exchangeName] ) {
+          if (!data.rates[obj.exchangeName]) {
             obj.convertedPrice = Number(obj.sanitizedPrice);
           } else {
-            obj.convertedPrice = (obj.sanitizedPrice / data.rates[obj.exchangeName]);
+            obj.convertedPrice = obj.sanitizedPrice / data.rates[obj.exchangeName];
           }
 
           this.log('Pre-conversion: ', obj.sanitizedPrice);
@@ -248,10 +323,10 @@
      * @param {object} elem The target element to fade in
      * @returns {method}
      */
-    fade: function(elem) {
+    fade: function (elem) {
       return setTimeout(() => {
         [...elem.querySelectorAll('.de-price')].forEach(el => {
-          if ( !el.classList.contains('show') ) {
+          if (!el.classList.contains('show')) {
             el.classList.add('show');
           }
         });
@@ -265,16 +340,16 @@
      * @param {number} threshold The number the item has to exceed to be listed in red
      * @returns {string}
      */
-    getAmountString: function(percentage, threshold) {
+    getAmountString: function (percentage, threshold) {
 
       let amount;
       // Less than suggested
-      if ( percentage > threshold ) {
+      if (percentage > threshold) {
         amount = 'less';
-      // More than suggested
-      } else if ( percentage < -threshold ) {
+        // More than suggested
+      } else if (percentage < -threshold) {
         amount = 'more';
-      // Within threshold
+        // Within threshold
       } else {
         amount = '';
       }
@@ -286,20 +361,20 @@
      * @param cname {string} The name of the cookie to get
      * @returns {string}
      */
-    getCookie: function(cname) {
+    getCookie: function (cname) {
 
-    let name = cname + '=',
-        ca = document.cookie.split(';');
+      let name = cname + '=',
+          ca = document.cookie.split(';');
 
       for (let i = 0; i < ca.length; i++) {
 
         let c = ca[i];
 
-        while ( c.charAt(0) === ' ' ) {
+        while (c.charAt(0) === ' ') {
           c = c.substring(1);
         }
 
-        if ( c.indexOf(name) === 0 ) {
+        if (c.indexOf(name) === 0) {
           return c.substring(name.length, c.length);
         }
       }
@@ -313,7 +388,7 @@
      * @param    {string} item: name of the item to be returned
      * @returns   {object | string}
      */
-    getItem: function(item) {
+    getItem: function (item) {
 
       try {
         return JSON.parse(localStorage.getItem(item));
@@ -332,7 +407,7 @@
      * @param {String} preference - the name of the preference to return
      * @returns {String|Boolean|Array|Number|Object}
      */
-    getPreference: function(preference) {
+    getPreference: function (preference) {
 
       let userPreferences = this.getItem('userPreferences');
 
@@ -349,12 +424,12 @@
      * @param    {string} symbol
      * @returns   {string} symbol
      */
-    getSymbols: function(userCurrency, symbol) {
+    getSymbols: function (userCurrency, symbol) {
 
       let language = this.language();
 
       this.exchangeList.forEach((name, f) => {
-        if ( name === userCurrency ) {
+        if (name === userCurrency) {
           symbol = this.printSymbol[language][f];
         }
       });
@@ -373,10 +448,9 @@
      * @param {Object} fn - The function to call on `pjax:end`
      * @returns {undefined}
      */
-    handlePaginationClicks: function(fn, ...args) {
+    handlePaginationClicks: function (fn, ...args) {
       let checkjQ = setInterval(() => {
-        if ( Object.prototype.hasOwnProperty.call(window, '$')
-             && typeof window.$ === 'function') {
+        if (Object.prototype.hasOwnProperty.call(window, '$') && typeof window.$ === 'function') {
           clearInterval(checkjQ);
           window.$(document).on('pjax:end', () => fn(...args));
         }
@@ -388,8 +462,8 @@
      * @param {HTMLElement} elem - The element to check visibility
      * @returns {Boolean}
      */
-    isHidden: function(elem) {
-      return (elem.offsetParent === null);
+    isHidden: function (elem) {
+      return elem.offsetParent === null;
     },
 
     /**
@@ -399,11 +473,11 @@
      */
     isOnScreen(elem) {
 
-      if ( elem && elem.getBoundingClientRect() ) {
+      if (elem && elem.getBoundingClientRect()) {
 
         let elemTop = elem.getBoundingClientRect().top,
             elemBottom = elem.getBoundingClientRect().bottom,
-            isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight * 2);
+            isVisible = elemTop >= 0 && elemBottom <= window.innerHeight * 2;
 
         return isVisible;
       }
@@ -413,13 +487,13 @@
      * Returns the currently selected language
      * @returns   {string}
      */
-    language: function() {
+    language: function () {
 
       let id = document.getElementById('i18n_select') || null,
           hasValue = id ? id.options[id.selectedIndex] && id.options[id.selectedIndex].value : null,
           language = hasValue ? id.options[id.selectedIndex].value : 'en';
 
-      language = (language === 'pt_BR') ? 'pt' : language;
+      language = language === 'pt_BR' ? 'pt' : language;
 
       return language;
     },
@@ -432,18 +506,17 @@
      * @param    {string} language The user's language setting
      * @returns   {string}
      */
-    localizeSuggestion: function(symbol, price, userCurrency, language) {
+    localizeSuggestion: function (symbol, price, userCurrency, language) {
 
-      let maxDigits,
-          priceConfig;
+      let maxDigits, priceConfig;
 
-      if ( !userCurrency || !language ) {
+      if (!userCurrency || !language) {
         userCurrency = this.getPreference('userCurrency');
         language = this.language();
       }
 
       // Use fracitonal values if user's currency is not JPY
-      maxDigits = (userCurrency === 'JPY') ? 0 : 2;
+      maxDigits = userCurrency === 'JPY' ? 0 : 2;
 
       priceConfig = {
         currency: userCurrency,
@@ -487,9 +560,9 @@
      * @method
      * @returns {function}
      */
-    log: function() {
+    log: function () {
 
-      if ( this.options.debug() ) {
+      if (this.options.debug()) {
 
         return console.log(...arguments);
       }
@@ -501,19 +574,21 @@
      * @param    {array<object>} source An array of objects representing release data
      * @returns   {object}
      */
-    matchSymbols: function(source, language) {
+    matchSymbols: function (source, language) {
 
-      if ( !language ) { language = this.language(); }
+      if (!language) {
+        language = this.language();
+      }
 
       source.forEach((releaseData, i) => {
 
         // An array of regexs based on the user's language
         let symbol = this.symbolRegex[language];
 
-        for ( i = 0; i < symbol.length; i++ ) {
-          if ( releaseData.price.match(symbol[i], 'g') ) {
+        for (i = 0; i < symbol.length; i++) {
+          if (releaseData.price.match(symbol[i], 'g')) {
             // Determine if the release is listed in JPY
-            switch ( symbol[i] ) {
+            switch (symbol[i]) {
 
               case 's*¥':
               case 's*￥':
@@ -552,7 +627,7 @@
        * Whether to change price colors
        * @returns {boolean}
        */
-      colorize: function() {
+      colorize: function () {
         let hasOptions = resourceLibrary.getPreference('options'),
             colorize = hasOptions ? hasOptions.colorize : false;
         return colorize;
@@ -562,7 +637,7 @@
        * Whether to log values
        * @returns {Boolean}
        */
-      debug: function() {
+      debug: function () {
         let hasOptions = resourceLibrary.getPreference('options'),
             debug = hasOptions ? hasOptions.debug : false;
         return debug;
@@ -572,7 +647,7 @@
        * Whether to highlight comments on the dashboard
        * @returns {Boolean}
        */
-      highlightComments: function() {
+      highlightComments: function () {
         let hasOptions = resourceLibrary.getPreference('options'),
             comments = hasOptions ? hasOptions.comments : false;
         return comments;
@@ -582,34 +657,46 @@
        * Gets current options state
        * @returns {undefined}
        */
-      getOptions: function() {
+      getOptions: function () {
 
         let options = resourceLibrary.getPreference('options'),
             { colorize,
-              comments,
-              debug,
-              quicksearch,
-              threshold,
-              unitTests } = options;
+          comments,
+          debug,
+          quicksearch,
+          threshold,
+          unitTests } = options;
 
-        if (colorize) { document.getElementById('colorize').checked = true; }
+        if (colorize) {
+          document.getElementById('colorize').checked = true;
+        }
 
-        if (comments) { document.getElementById('comments').checked = true; }
+        if (comments) {
+          document.getElementById('comments').checked = true;
+        }
 
-        if (debug) { document.getElementById('debug').checked = true; }
+        if (debug) {
+          document.getElementById('debug').checked = true;
+        }
 
-        if (quicksearch) { document.getElementById('quicksearch').value = quicksearch; }
+        if (quicksearch) {
+          document.getElementById('quicksearch').value = quicksearch;
+        }
 
-        if (threshold) { document.getElementById('threshold').value = threshold; }
+        if (threshold) {
+          document.getElementById('threshold').value = threshold;
+        }
 
-        if (unitTests) { document.getElementById('unittests').checked = true; }
+        if (unitTests) {
+          document.getElementById('unittests').checked = true;
+        }
       },
 
       /**
        * Saves selected options on options modal
        * @returns {function}
        */
-      saveOptions: function() {
+      saveOptions: function () {
 
         let options,
             colorize = document.getElementById('colorize').checked,
@@ -643,7 +730,7 @@
        * An additional string appended to the quick-search google query
        * @returns {String}
        */
-      quicksearch: function() {
+      quicksearch: function () {
         let hasOptions = resourceLibrary.getPreference('options'),
             quicksearch = hasOptions ? hasOptions.quicksearch : '';
         return quicksearch;
@@ -653,7 +740,7 @@
        * The maximum percentage that an item will be ballpark estimated with: ±
        * @returns {number}
        */
-      threshold: function() {
+      threshold: function () {
         let hasOptions = resourceLibrary.getPreference('options'),
             threshold = hasOptions ? hasOptions.threshold : 2;
         return Number(threshold);
@@ -663,7 +750,7 @@
        * Whether to run unit tests
        * @returns {Boolean}
        */
-      unitTests: function() {
+      unitTests: function () {
         let hasOptions = resourceLibrary.getPreference('options'),
             unitTests = hasOptions ? hasOptions.unitTests : false;
         return unitTests;
@@ -676,7 +763,7 @@
      * @param  {String} pages - Thte type of page to check for
      * @returns {Boolean}
      */
-    pageIs: function(...pages) {
+    pageIs: function (...pages) {
       let href = window.location.href;
       return pages.some(page => href.includes(this.pageKeys[page]));
     },
@@ -687,7 +774,7 @@
      * @param  {String} pages - Thte type of page to check for
      * @returns {Boolean}
      */
-    pageIsNot: function(...pages) {
+    pageIsNot: function (...pages) {
       let href = window.location.href;
       return pages.every(page => !href.includes(this.pageKeys[page]));
     },
@@ -727,7 +814,7 @@
       'settings': '/settings/',
       'stats': '/stats/',
       'update': '/update',
-      'videos': '/videos/',
+      'videos': '/videos/'
     },
 
     /**
@@ -736,7 +823,7 @@
      * @param {string} pagination The text from the .pagination_total element
      * @returns {string}
      */
-    paginationTotal: function(pagination) {
+    paginationTotal: function (pagination) {
 
       let total,
           lang = this.language();
@@ -790,18 +877,18 @@
      * @param    {string} url [the URL passed into the function]
      * @returns   {string} num [the parsed id number]
      */
-    parseURL: function(url) {
+    parseURL: function (url) {
 
       if (url) {
 
         let urlArr = url.split('/'),
             num = urlArr[urlArr.length - 1];
 
-        if ( num.includes('-') ) {
+        if (num.includes('-')) {
           num = num.split('-')[0];
         }
 
-        if ( num.includes('?') ) {
+        if (num.includes('?')) {
           num = num.split('?')[0];
         }
 
@@ -814,7 +901,7 @@
      * @param    {string} element
      * @returns   {object}
      */
-    prepareObj: function(element) {
+    prepareObj: function (element) {
 
       element = element.substring(element.indexOf('return')).substring(7);
 
@@ -858,9 +945,9 @@
      * @param    {function} fn [the code to be run when the DOM is ready]
      * @returns   {undefined}
      */
-    ready: function(fn) {
+    ready: function (fn) {
 
-      if ( document.readyState !== 'loading' ) {
+      if (document.readyState !== 'loading') {
         fn();
       } else {
         document.addEventListener('DOMContentLoaded', fn);
@@ -873,11 +960,11 @@
      * @param    {string} url [current page URL]
      * @returns   {string}
      */
-    removePageParam: function(url) {
+    removePageParam: function (url) {
 
       let params;
 
-      if ( url.indexOf('?') > -1 ) {
+      if (url.indexOf('?') > -1) {
 
         let page = /page=/g;
 
@@ -901,13 +988,13 @@
      * @param {String} preference - The preference to be deleted
      * @returns {null}
      */
-    removePreference: function(preference) {
+    removePreference: function (preference) {
 
       let userPreferences = this.getItem('userPreferences');
 
       if (userPreferences && userPreferences[preference]) {
-          delete userPreferences[preference];
-          this.setItem('userPreferences', userPreferences);
+        delete userPreferences[preference];
+        this.setItem('userPreferences', userPreferences);
       }
     },
 
@@ -917,7 +1004,7 @@
      * @param    {array<object>} source An array of release objects
      * @returns   {object}
      */
-    sanitizePrices: function(source) {
+    sanitizePrices: function (source) {
 
       source.forEach(obj => {
 
@@ -941,9 +1028,9 @@
      * @param    {object} elem The button to set the text on
      * @returns   {object} elem
      */
-    setButtonText: function(elem) {
+    setButtonText: function (elem) {
 
-      switch(elem.textContent.trim()) {
+      switch (elem.textContent.trim()) {
 
         case 'Sort A-Z':
           elem.textContent = 'Sort Z-A';
@@ -966,7 +1053,7 @@
      * @param    {string|object} value The value to set
      * @returns   {function}
      */
-    setItem: function(name, value) {
+    setItem: function (name, value) {
       value = JSON.stringify(value);
       return localStorage.setItem(name, value);
     },
@@ -977,14 +1064,14 @@
      * @param {Object|Array|Number|String} value - The prop value to set
      * @returns {undefined}
      */
-    setPreference: function(name, value) {
+    setPreference: function (name, value) {
 
       let userPreferences = this.getItem('userPreferences');
       userPreferences[name] = value;
       this.setItem('userPreferences', userPreferences);
     },
 
-    setScanner: function() {
+    setScanner: function () {
 
       let obj = {
         wants: true,
@@ -1018,7 +1105,7 @@
 
       pt: ['\s*\€', '\s*\£', '\s*JP\¥', '\s*JP\￥', /(AU\$)/, /(CA\$)/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*RUB', '\s*ZAR', /(MX\$)/, /(R\$)/, /(US\$)/],
 
-      ru: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /([^C]A\$)/, /(CA\$)/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*RUB', '\s*ZAR', /(MX\$)/, /(R\$)/, /\$$/],
+      ru: ['\s*\€', '\s*\£', '\s*\¥', '\s*\￥', /([^C]A\$)/, /(CA\$)/, '\s*CHF', '\s*SEK', /(NZ\$)/, '\s*RUB', '\s*ZAR', /(MX\$)/, /(R\$)/, /\$$/]
     },
 
     /**
@@ -1026,7 +1113,7 @@
      * @param {Object} obj - User feedback object
      * @returns {undefined}
      */
-    testFeedback: function() {
+    testFeedback: function () {
       let obj = this.getPreference('feedback'),
           { buyer, seller } = obj;
 
@@ -1037,7 +1124,9 @@
 
       this.setPreference('feedback', obj);
       console.log('Test initiated. This window will reload in 2 minutes.');
-      setTimeout(() => { location.reload(); }, 120000);
+      setTimeout(() => {
+        location.reload();
+      }, 120000);
     },
 
     /**
@@ -1045,7 +1134,7 @@
      * @param {Number} pageNum - The page number
      * @returns {undefined}
      */
-    updatePageParam: function(pageNum) {
+    updatePageParam: function (pageNum) {
       if ('URLSearchParams' in window) {
         let searchParams = new URLSearchParams(window.location.search);
         searchParams.set('page', pageNum);
@@ -1058,13 +1147,17 @@
      * Returns the username of the logged in user
      * @returns {String}
      */
-    username: function() {
+    username: function () {
       let name = window.dsdata ? window.dsdata().username : null,
           header = document.querySelector('#site_header_wrap');
-      if ( name === 'matzubo' ) {
+      if (name === 'matzubo') {
         header.style.setProperty('background', '#3c6088', 'important');
       }
       return name;
     }
   };
-}());
+})();
+
+/***/ })
+
+/******/ });

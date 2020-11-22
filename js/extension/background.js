@@ -1,3 +1,94 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 22);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 22:
+/***/ (function(module, exports) {
+
 /**
  *
  * Discogs Enhancer
@@ -62,12 +153,12 @@ function appendFragment(elems) {
  */
 function getCurrentFilterState() {
   let currentFilterState = {
-        everlastingMarket: prefs.everlastingMarket,
-        filterMediaCondition: prefs.filterMediaCondition,
-        filterPrices: prefs.filterPrices,
-        filterShippingCountry: prefs.filterShippingCountry,
-        filterSleeveCondition: prefs.filterSleeveCondition,
-      };
+    everlastingMarket: prefs.everlastingMarket,
+    filterMediaCondition: prefs.filterMediaCondition,
+    filterPrices: prefs.filterPrices,
+    filterShippingCountry: prefs.filterShippingCountry,
+    filterSleeveCondition: prefs.filterSleeveCondition
+  };
   return currentFilterState;
 }
 
@@ -77,17 +168,15 @@ function getCurrentFilterState() {
 
 if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
-  chrome.runtime.onInstalled.addListener(function(details) {
+  chrome.runtime.onInstalled.addListener(function (details) {
 
-    let previousVersion,
-        thisVersion;
+    let previousVersion, thisVersion;
 
     if (details.reason === 'install') {
 
       console.log('Welcome to the pleasuredome!');
 
-      chrome.storage.sync.set({ didUpdate: false }, function() {});
-
+      chrome.storage.sync.set({ didUpdate: false }, function () {});
     } else if (details.reason === 'update') {
 
       // - Don't show an update notice on patches -
@@ -95,14 +184,13 @@ if (typeof chrome.runtime.onInstalled !== 'undefined') {
 
       thisVersion = chrome.runtime.getManifest().version.split('.');
 
-      if ( Number(thisVersion[0]) > Number(previousVersion[0]) ||
-           Number(thisVersion[1]) > Number(previousVersion[1]) ) {
+      if (Number(thisVersion[0]) > Number(previousVersion[0]) || Number(thisVersion[1]) > Number(previousVersion[1])) {
 
-        chrome.browserAction.setBadgeText({text: ' '});
+        chrome.browserAction.setBadgeText({ text: ' ' });
 
-        chrome.browserAction.setBadgeBackgroundColor({color: '#4cb749'});
+        chrome.browserAction.setBadgeBackgroundColor({ color: '#4cb749' });
 
-        chrome.storage.sync.set({didUpdate: true}, function() {});
+        chrome.storage.sync.set({ didUpdate: true }, function () {});
       }
     }
   });
@@ -195,11 +283,11 @@ appendFragment([resourceLibrary]).then(() => {
     }
 
     // Dark Theme
-    if ( result.prefs.darkTheme ) document.documentElement.classList.add('de-dark-theme');
+    if (result.prefs.darkTheme) document.documentElement.classList.add('de-dark-theme');
     // Don't use the dark theme on subdomains or when printing an order
     // Fixed in this file instead of manifest.json due to issues explained here:
     // https://github.com/salcido/discogs-enhancer/issues/14
-    if ( !window.location.href.includes('www') || window.location.href.includes('/order/prints?')) {
+    if (!window.location.href.includes('www') || window.location.href.includes('/order/prints?')) {
       document.documentElement.classList.remove('de-dark-theme');
     }
 
@@ -258,8 +346,7 @@ appendFragment([resourceLibrary]).then(() => {
       baoi_css.rel = 'stylesheet';
       baoi_css.type = 'text/css';
       baoi_css.href = chrome.extension.getURL('css/baoi-fields.css');
-      baoi_css.id = 'baoiFieldsCss',
-      baoi_css.disabled = !result.prefs.baoiFields;
+      baoi_css.id = 'baoiFieldsCss', baoi_css.disabled = !result.prefs.baoiFields;
 
       elems.push(baoi_css);
 
@@ -269,8 +356,7 @@ appendFragment([resourceLibrary]).then(() => {
       ytPlaylists_css.rel = 'stylesheet';
       ytPlaylists_css.type = 'text/css';
       ytPlaylists_css.href = chrome.extension.getURL('css/large-youtube-playlists.css');
-      ytPlaylists_css.id = 'ytPlaylistsCss',
-      ytPlaylists_css.disabled = !result.prefs.ytPlaylists;
+      ytPlaylists_css.id = 'ytPlaylistsCss', ytPlaylists_css.disabled = !result.prefs.ytPlaylists;
 
       elems.push(ytPlaylists_css);
 
@@ -317,7 +403,7 @@ appendFragment([resourceLibrary]).then(() => {
       // Preference-dependent scripts
       // ========================================================
 
-      if ( result.prefs.absoluteDate ) {
+      if (result.prefs.absoluteDate) {
         // show-actual-dates.js
         let absoluteDate = document.createElement('script');
 
@@ -328,7 +414,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(absoluteDate);
       }
 
-      if ( result.prefs.averagePrice ) {
+      if (result.prefs.averagePrice) {
         // average-price.js
         let averagePrice = document.createElement('script');
 
@@ -339,7 +425,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(averagePrice);
       }
 
-      if ( result.prefs.blockBuyers ) {
+      if (result.prefs.blockBuyers) {
         // block-buyers.js
         let blockBuyers = document.createElement('script');
 
@@ -383,7 +469,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(blurryImageFix);
       }
 
-      if ( result.prefs.confirmBeforeRemoving ) {
+      if (result.prefs.confirmBeforeRemoving) {
 
         let confirmBeforeRemoving = document.createElement('script');
 
@@ -406,8 +492,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(collectionUi);
       }
 
-      if ( result.prefs.converter
-           && !window.location.href.includes('/order/prints?') ) {
+      if (result.prefs.converter && !window.location.href.includes('/order/prints?')) {
 
         // currency-converter.css
         let converter_css = document.createElement('link');
@@ -451,7 +536,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // demand-index.js
-      if ( result.prefs.demandIndex ) {
+      if (result.prefs.demandIndex) {
 
         let demandIndex = document.createElement('script');
 
@@ -471,7 +556,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // everlasting collection
-      if ( result.prefs.everlastingCollection ) {
+      if (result.prefs.everlastingCollection) {
 
         // everlasting-collection-notes.js
         let everlastingCollectionNotes = document.createElement('script');
@@ -565,7 +650,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(filterMediaCondition);
       }
 
-      if ( result.prefs.filterPrices ) {
+      if (result.prefs.filterPrices) {
 
         let filterPrices = document.createElement('script');
 
@@ -658,7 +743,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(notesCount);
       }
 
-      if ( result.prefs.quickSearch ) {
+      if (result.prefs.quickSearch) {
 
         // quick-search.js
         let quickSearch = document.createElement('script');
@@ -694,7 +779,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(randomItem);
       }
 
-      if ( result.prefs.ratingPercent ) {
+      if (result.prefs.ratingPercent) {
 
         // rating-percent.js
         let ratingPercent = document.createElement('script');
@@ -727,7 +812,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(readability);
       }
 
-      if ( result.prefs.relativeSoldDate ) {
+      if (result.prefs.relativeSoldDate) {
 
         // relative-sold-date.js
         let relativeSoldDate = document.createElement('script');
@@ -752,7 +837,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // release-ratings
-      if ( result.prefs.releaseRatings ) {
+      if (result.prefs.releaseRatings) {
 
         let releaseRatings = document.createElement('script');
 
@@ -764,7 +849,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // release-scanner
-      if ( result.prefs.releaseScanner ) {
+      if (result.prefs.releaseScanner) {
 
         let releaseScanner = document.createElement('script');
 
@@ -775,7 +860,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(releaseScanner);
       }
 
-      if ( result.prefs.removeFromWantlist ) {
+      if (result.prefs.removeFromWantlist) {
 
         // remove-from-wantlist.js
         let removeFromWantlist = document.createElement('script');
@@ -787,7 +872,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(removeFromWantlist);
       }
 
-      if ( result.prefs.sellerItemsInCart ) {
+      if (result.prefs.sellerItemsInCart) {
 
         let sellerItemsInCart = document.createElement('script');
 
@@ -798,7 +883,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(sellerItemsInCart);
       }
 
-      if ( result.prefs.sellerRep ) {
+      if (result.prefs.sellerRep) {
 
         // seller-rep.js
         let sellerRep = document.createElement('script');
@@ -810,7 +895,7 @@ appendFragment([resourceLibrary]).then(() => {
         elems.push(sellerRep);
       }
 
-      if ( result.prefs.sortButtons ) {
+      if (result.prefs.sortButtons) {
 
         let sortButton_css = document.createElement('link');
 
@@ -819,7 +904,7 @@ appendFragment([resourceLibrary]).then(() => {
         sortButton_css.href = chrome.extension.getURL('css/sort-buttons.css');
         sortButton_css.id = 'sortButton_css';
 
-        elems.push( sortButton_css );
+        elems.push(sortButton_css);
 
         // sort-explore-lists.js
         let sortExploreScript = document.createElement('script');
@@ -828,7 +913,7 @@ appendFragment([resourceLibrary]).then(() => {
         sortExploreScript.src = chrome.extension.getURL('js/extension/features/sort-explore-lists.js');
         sortExploreScript.className = 'de-init';
 
-        elems.push( sortExploreScript );
+        elems.push(sortExploreScript);
 
         // sort-marketplace-lists.js
         let sortMarketplaceScript = document.createElement('script');
@@ -837,7 +922,7 @@ appendFragment([resourceLibrary]).then(() => {
         sortMarketplaceScript.src = chrome.extension.getURL('js/extension/features/sort-marketplace-lists.js');
         sortMarketplaceScript.className = 'de-init';
 
-        elems.push( sortMarketplaceScript );
+        elems.push(sortMarketplaceScript);
 
         // sort-personal-lists.js
         let sortPersonalListsScript = document.createElement('script');
@@ -846,7 +931,7 @@ appendFragment([resourceLibrary]).then(() => {
         sortPersonalListsScript.src = chrome.extension.getURL('js/extension/features/sort-personal-lists.js');
         sortPersonalListsScript.className = 'de-init';
 
-        elems.push( sortPersonalListsScript );
+        elems.push(sortPersonalListsScript);
       }
 
       if (result.prefs.suggestedPrices) {
@@ -880,7 +965,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       // tweak-discriminators.js
-      if ( result.prefs.tweakDiscrims ) {
+      if (result.prefs.tweakDiscrims) {
 
         let tweakDiscrims = document.createElement('script');
 
@@ -1103,8 +1188,7 @@ appendFragment([resourceLibrary]).then(() => {
       }
 
       return resolve(result);
-    })
-    .then(() => {
+    }).then(() => {
       // Get preferences from extension side and save to DOM side.
       return new Promise(resolve => {
         chrome.runtime.sendMessage({ request: 'userPreferences' }, response => {
@@ -1121,35 +1205,34 @@ appendFragment([resourceLibrary]).then(() => {
           return resolve(newPrefs);
         });
       });
-    })
-    .then(newPrefs => {
+    }).then(newPrefs => {
       // Instantiate default options
       return new Promise(resolve => {
-        if ( !Object.prototype.hasOwnProperty.call(newPrefs, 'options') ) {
+        if (!Object.prototype.hasOwnProperty.call(newPrefs, 'options')) {
 
           let options = {
-                colorize: false,
-                comments: false,
-                debug: false,
-                quicksearch: '',
-                threshold: 2,
-                unitTests: false
-              };
+            colorize: false,
+            comments: false,
+            debug: false,
+            quicksearch: '',
+            threshold: 2,
+            unitTests: false
+          };
 
           newPrefs.options = options;
         }
         localStorage.setItem('userPreferences', JSON.stringify(newPrefs));
         return resolve();
       });
-    })
-    .then(() => appendFragment(elems))
-    .then(() => document.ready())
-    .then(() => {
+    }).then(() => appendFragment(elems)).then(() => document.ready()).then(() => {
       // DOM clean up
       document.querySelectorAll('.de-init').forEach(child => {
         child.parentNode.removeChild(child);
       });
-    })
-    .catch(err => console.error('Error injecting scripts', err));
+    }).catch(err => console.error('Error injecting scripts', err));
   });
 });
+
+/***/ })
+
+/******/ });

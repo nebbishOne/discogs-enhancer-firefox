@@ -1,3 +1,94 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 81);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 81:
+/***/ (function(module, exports) {
+
 /**
  *
  * Discogs Enhancer
@@ -46,38 +137,41 @@
 
 rl.ready(() => {
 
-  if ( rl.pageIs('release') && rl.pageIsNot('history', 'sellRelease') ) {
+  if (rl.pageIs('release') && rl.pageIsNot('history', 'sellRelease')) {
 
-    let
-        config = rl.getPreference('readability') || useDefaults(),
+    let config = rl.getPreference('readability') || useDefaults(),
         show = rl.getPreference('readabilityDividers') || setReadabilityTrue(),
-
         debug = rl.options.debug(),
 
-        // don't insert spacers if headings or index tracks already exist.
-        // And don't confuse release durations with track headers
-        durations = document.querySelector('.de-durations'),
+
+    // don't insert spacers if headings or index tracks already exist.
+    // And don't confuse release durations with track headers
+    durations = document.querySelector('.de-durations'),
         noHeadings = durations ? document.querySelectorAll('.track_heading').length <= 1 : document.querySelectorAll('.track_heading').length < 1,
         hasIndexTracks = document.querySelectorAll('.index_track').length > 0,
 
-        // Compilations have different markup requirements when rendering track headings...
-        isCompilation = document.querySelectorAll('.tracklist_track_artists').length > 0,
 
-        // ...so only insert the duration markup if it's a compilation
-        duration = isCompilation ? '<td width="25" class="tracklist_track_duration"><span></span></td>' : '',
+    // Compilations have different markup requirements when rendering track headings...
+    isCompilation = document.querySelectorAll('.tracklist_track_artists').length > 0,
 
-        // array of all tracks on a release
-        tracklist = [...document.querySelectorAll('.playlist tbody tr')],
 
-        // size of dividers inserted between tracks
-        size = config.size ? `line-height:${config.size}rem;` : 'line-height:0.5rem',
+    // ...so only insert the duration markup if it's a compilation
+    duration = isCompilation ? '<td width="25" class="tracklist_track_duration"><span></span></td>' : '',
 
+
+    // array of all tracks on a release
+    tracklist = [...document.querySelectorAll('.playlist tbody tr')],
+
+
+    // size of dividers inserted between tracks
+    size = config.size ? `line-height:${config.size}rem;` : 'line-height:0.5rem',
         prefix = [],
         sequence = [],
         isSequential = false,
 
-        // divider markup to be injected
-        display = show ? '' : 'hide',
+
+    // divider markup to be injected
+    display = show ? '' : 'hide',
         spacer = `<tr class="tracklist_track track_heading de-spacer ${display}" style="${size}">
                     <td class="tracklist_track_pos"></td>
                     <td colspan="2" class="tracklist_track_title">&nbsp;</td>
@@ -95,19 +189,19 @@ rl.ready(() => {
     function appendUI() {
 
       // add the show/hide trigger if it does not exist
-      if ( !document.querySelectorAll('.de-spacer-trigger').length ) {
+      if (!document.querySelectorAll('.de-spacer-trigger').length) {
 
         // title of show/hide dividers link
         let text = show ? 'Hide' : 'Show',
             trigger = `<a class="smallish fright de-spacer-trigger">${text} Dividers</a>`;
 
-        document.querySelector('#tracklist .group').insertAdjacentHTML('beforeend',trigger);
+        document.querySelector('#tracklist .group').insertAdjacentHTML('beforeend', trigger);
       }
 
       // Trigger functionality
       document.querySelector('.de-spacer-trigger').addEventListener('click', event => {
 
-        if ( dividersAreHidden() ) {
+        if (dividersAreHidden()) {
 
           event.target.textContent = 'Hide Dividers';
         } else {
@@ -115,9 +209,7 @@ rl.ready(() => {
         }
 
         [...document.querySelectorAll('.de-spacer')].forEach(elem => {
-          elem.classList.contains('hide')
-            ? elem.classList.remove('hide')
-            : elem.classList.add('hide');
+          elem.classList.contains('hide') ? elem.classList.remove('hide') : elem.classList.add('hide');
         });
 
         show = !show;
@@ -132,7 +224,7 @@ rl.ready(() => {
      */
     function checkForSpacerErrors() {
 
-      if ( !document.querySelectorAll('.de-spacer').length ) {
+      if (!document.querySelectorAll('.de-spacer').length) {
         document.querySelector('.de-spacer-trigger').remove();
       }
     }
@@ -169,20 +261,19 @@ rl.ready(() => {
 
       try {
 
-       for ( let i = 0; i < tPos.length; i++ ) {
+        for (let i = 0; i < tPos.length; i++) {
 
-          if ( !tPos[i][tPos[i].length - 2] ) {
+          if (!tPos[i][tPos[i].length - 2]) {
 
             break;
           }
 
           // Get the last two numerical digits from each track position
-          let lastTwo = ( tPos[i][tPos[i].length - 2] + tPos[i][tPos[i].length - 1] ).match(/\d/g);
+          let lastTwo = (tPos[i][tPos[i].length - 2] + tPos[i][tPos[i].length - 1]).match(/\d/g);
 
-          if ( lastTwo ) {
+          if (lastTwo) {
 
             suffix.push(lastTwo.join(''));
-
           } else {
 
             // if there aren't two digits
@@ -192,14 +283,13 @@ rl.ready(() => {
           }
         }
 
-        for ( let i = 0; i < suffix.length; i++ ) {
+        for (let i = 0; i < suffix.length; i++) {
 
           // using '==' specifcally for coercion
-          if ( suffix[i] == counter ) {
+          if (suffix[i] == counter) {
 
             counter++;
-
-          } else if ( suffix[i] && suffix[i] != counter ) {
+          } else if (suffix[i] && suffix[i] != counter) {
 
             tracklist[i - 1].insertAdjacentHTML('afterend', spacer);
             // reset counter and `i` to continue comparison
@@ -207,7 +297,7 @@ rl.ready(() => {
             i--;
             infLoop++;
 
-            if ( infLoop > 500 ) {
+            if (infLoop > 500) {
               // Need to check to see if we're caught in an infinite loop
               // because of this release: https://www.discogs.com/Various-Blech/release/30565
               // the `218.5` track breaks this feature and causes the browser to hang.
@@ -248,7 +338,9 @@ rl.ready(() => {
 
       tPos.forEach((num, i) => {
 
-        if ( num === i + 1 ) { count++; }
+        if (num === i + 1) {
+          count++;
+        }
       });
 
       return count === tPos.length ? true : false;
@@ -276,7 +368,7 @@ rl.ready(() => {
           let current = tPos[i],
               next = tPos[i + 1];
 
-          if ( next && current !== next ) {
+          if (next && current !== next) {
 
             tracklist[i].insertAdjacentHTML('afterend', spacer);
           }
@@ -302,16 +394,16 @@ rl.ready(() => {
 
       try {
 
-        tPos.forEach((t,i) => {
+        tPos.forEach((t, i) => {
 
-          let current = Number( tPos[i].match(/\d+/g) ),
-              next = Number( tPos[i + 1].match(/\d+/g) );
+          let current = Number(tPos[i].match(/\d+/g)),
+              next = Number(tPos[i + 1].match(/\d+/g));
 
           // check for 0 value which can be returned when a
           // track is simply listed as A, B, C, etc ...
-          if ( next <= current && current !== 0 || !current && next ) {
+          if (next <= current && current !== 0 || !current && next) {
 
-            if ( i !== tracklist.length - 1 ) {
+            if (i !== tracklist.length - 1) {
 
               tracklist[i].insertAdjacentHTML('afterend', spacer);
             }
@@ -336,9 +428,9 @@ rl.ready(() => {
 
     function insertSpacersEveryNth(tPos, nth) {
 
-      tPos.forEach((t,i) => {
+      tPos.forEach((t, i) => {
 
-        if ( i % nth === 0 && i !== 0 ) {
+        if (i % nth === 0 && i !== 0) {
 
           tracklist[i - 1].insertAdjacentHTML('afterend', spacer);
         }
@@ -354,7 +446,7 @@ rl.ready(() => {
 
     function setReadabilityTrue() {
 
-      if ( rl.getPreference('readabilityDividers') === undefined ) {
+      if (rl.getPreference('readabilityDividers') === undefined) {
 
         rl.setPreference('readabilityDividers', true);
       }
@@ -372,33 +464,27 @@ rl.ready(() => {
     function useDefaults() {
 
       return { indexTracks: false,
-               nth: 10,
-               otherMediaReadability: false,
-               otherMediaThreshold: 15,
-               size: 0.5,
-               vcReadability: true,
-               vcThreshold: 8 };
+        nth: 10,
+        otherMediaReadability: false,
+        otherMediaThreshold: 15,
+        size: 0.5,
+        vcReadability: true,
+        vcThreshold: 8 };
     }
 
     // ========================================================
     // Init / DOM Setup
     // ========================================================
 
-    if ( noHeadings && !hasIndexTracks ) {
+    if (noHeadings && !hasIndexTracks) {
 
       let prefixes = false,
-          trackpos = [...document.querySelectorAll('.tracklist_track_pos')].map(t => t.textContent );
+          trackpos = [...document.querySelectorAll('.tracklist_track_pos')].map(t => t.textContent);
 
       // Determine any common prefixes in the track positions
-      for ( let i = 0; i < trackpos.length; i++ ) {
+      for (let i = 0; i < trackpos.length; i++) {
 
-        if ( trackpos[i].includes('-') ||
-             trackpos[i].includes('.') ||
-             trackpos[i].includes('CD') ||
-             trackpos[i].includes('LP') ||
-             trackpos[i].includes('BD') ||
-             trackpos[i].includes('VHS') ||
-             trackpos[i].includes('DVD') ) {
+        if (trackpos[i].includes('-') || trackpos[i].includes('.') || trackpos[i].includes('CD') || trackpos[i].includes('LP') || trackpos[i].includes('BD') || trackpos[i].includes('VHS') || trackpos[i].includes('DVD')) {
 
           prefixes = true;
         }
@@ -407,13 +493,13 @@ rl.ready(() => {
       // No specialized prefixes (eg: CD-, BD-, VHS, DVD ...)
       // ---------------------------------------------------------------------------
 
-      if ( !prefixes ) {
+      if (!prefixes) {
 
         // Populate our arrays with whatever the prefix is and the remaining numbers
         trackpos.forEach(tpos => {
 
           // Make sure to match a real value, not null
-          if ( tpos.match(/\D/g) ) {
+          if (tpos.match(/\D/g)) {
 
             prefix.push(String(tpos.match(/\D/g)));
           }
@@ -426,13 +512,11 @@ rl.ready(() => {
 
         isSequential = hasContinualNumberSequence(sequence);
 
-        if ( isSequential && prefix.length ) {
+        if (isSequential && prefix.length) {
 
           // if the numbering is sequential (eg: A1, A2, B3, B4, C5, C6, C7 ...),
           // use the alpha-prefixes to determine where to insert the spacer markup
-          if ( config &&
-               config.vcReadability &&
-               tracklist.length > config.vcThreshold ) {
+          if (config && config.vcReadability && tracklist.length > config.vcThreshold) {
 
             appendUI();
             insertSpacersBasedOnAlphaDifferences(prefix);
@@ -445,14 +529,11 @@ rl.ready(() => {
             }
           }
 
-        // There is a number sequence but no prefix (eg: CDs, mp3s, etc)
-        // ---------------------------------------------------------------------------
+          // There is a number sequence but no prefix (eg: CDs, mp3s, etc)
+          // ---------------------------------------------------------------------------
+        } else if (isSequential && !prefix.length) {
 
-        } else if ( isSequential && !prefix.length ) {
-
-          if ( config &&
-               config.otherMediaReadability &&
-               tracklist.length > config.otherMediaThreshold ) {
+          if (config && config.otherMediaReadability && tracklist.length > config.otherMediaThreshold) {
 
             if (debug) {
 
@@ -464,16 +545,12 @@ rl.ready(() => {
             appendUI();
             return insertSpacersEveryNth(tracklist, config.nth);
           }
-
         } else {
 
           // Track numbering is not sequential (eg: A1, A2, B, C1, C2)
           // ---------------------------------------------------------------------------
 
-          if ( config &&
-               config.vcReadability &&
-               tracklist.length > config.vcThreshold &&
-               !hasIndexTracks ) {
+          if (config && config.vcReadability && tracklist.length > config.vcThreshold && !hasIndexTracks) {
 
             appendUI();
             insertSpacersBasedOnSides(trackpos);
@@ -486,15 +563,12 @@ rl.ready(() => {
             }
           }
         }
-
       } else {
 
         // Has Prefixes AKA Multi-Format releases (eg: CD + DVD, etc ...)
         // ---------------------------------------------------------------------------
 
-        if ( config &&
-             config.vcReadability &&
-             tracklist.length > config.vcReadability ) {
+        if (config && config.vcReadability && tracklist.length > config.vcReadability) {
 
           appendUI();
           handleMultiFormatRelease(trackpos);
@@ -512,10 +586,7 @@ rl.ready(() => {
     // Index tracks
     // ---------------------------------------------------------------------------
 
-    if ( config &&
-         noHeadings &&
-         config.indexTracks &&
-         hasIndexTracks ) {
+    if (config && noHeadings && config.indexTracks && hasIndexTracks) {
 
       appendUI();
 
@@ -528,7 +599,7 @@ rl.ready(() => {
 
       tracklist.forEach((trk, i) => {
 
-        if ( trk.classList.contains('index_track') && i !== 0 ) {
+        if (trk.classList.contains('index_track') && i !== 0) {
 
           trk.insertAdjacentHTML('beforebegin', spacer);
         }
@@ -536,3 +607,7 @@ rl.ready(() => {
     }
   }
 });
+
+/***/ })
+
+/******/ });

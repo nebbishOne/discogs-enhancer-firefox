@@ -1,3 +1,96 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 40:
+/***/ (function(module, exports) {
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 /**
  *
  * Discogs Enhancer
@@ -14,15 +107,76 @@ rl.ready(() => {
       layout = rl.getCookie('rl_layout'),
       username = rl.username();
 
-  if ( href.includes(`/${username}/collection`)
-       && layout !== 'big'
-       &&  !reactApp ) {
+  if (href.includes(`/${username}/collection`) && layout !== 'big' && !reactApp) {
+
+    /**
+     * Gets the next page of the collection
+     * @returns {undefined}
+     */
+    let getNextPage = (() => {
+      var _ref = _asyncToGenerator(function* () {
+
+        pageNum++;
+
+        try {
+
+          let url = `https://www.discogs.com/user/${username}/collection?page=${pageNum}${rl.removePageParam(href)}`,
+              data = yield fetch(`${url}`, { credentials: 'include' }),
+              response = yield data.text(),
+              tr = '#collection tbody tr',
+              div = document.createElement('div'),
+              loader = document.querySelector('#de-next'),
+              markup,
+              noItems = '<h1 class="de-no-results">End of collection</h1>',
+              notes;
+
+          div.innerHTML = response;
+          // Modify .notes-show elements with custom class to hook on to
+          notes = [...div.querySelectorAll('.notes_show')];
+          notes.forEach(function (note) {
+            return note.classList.add('de-notes-show');
+          });
+          // Select subset of markup to pass into DOM
+          markup = div.querySelectorAll(tr);
+          /*
+            If the requested page number exceeds the total number of requestable
+            pages, Discogs will return the first page of the collection. So check
+            the page request number against the total number of pages and append
+            a notice if we've reached the end.
+          */
+          if (pageNum <= Number(max)) {
+
+            appendCollectionData(markup);
+            rl.updatePageParam(pageNum);
+          } else {
+
+            loader.remove();
+            document.querySelector('#collection table').insertAdjacentHTML('afterend', noItems);
+          }
+
+          hasLoaded = false;
+          // Call Open links in new tabs feature
+          window.modifyLinks();
+        } catch (err) {
+          return console.log('Error getting next page of collection', err);
+        }
+      });
+
+      return function getNextPage() {
+        return _ref.apply(this, arguments);
+      };
+    })();
+
+    // ========================================================
+    // DOM Setup / Init
+    // ========================================================
+    // Hide pagination
+
 
     let hasLoaded = false,
-        initialPage = (new URL(document.location)).searchParams.get('page') || 1,
+        initialPage = new URL(document.location).searchParams.get('page') || 1,
         pageNum = initialPage,
-        max = document.querySelector('.pagination.bottom li a.pagination_next')
-                      .parentElement.previousElementSibling.textContent.trim();
+        max = document.querySelector('.pagination.bottom li a.pagination_next').parentElement.previousElementSibling.textContent.trim();
 
     // ========================================================
     // Functions (Alphabetical)
@@ -49,7 +203,7 @@ rl.ready(() => {
 
       setTimeout(() => window.injectStars(), 100);
       // Optional notes-counter feature functionality
-      if ( window.addNotesCounter ) setTimeout(() => window.addNotesCounter(), 100);
+      if (window.addNotesCounter) setTimeout(() => window.addNotesCounter(), 100);
     }
 
     /**
@@ -100,66 +254,11 @@ rl.ready(() => {
                       </tr>`;
           return pageStamp;
       }
-    }
+    }document.querySelectorAll('.pagination.bottom').forEach(el => {
+      el.style.display = 'none';
+    });
 
-    /**
-     * Gets the next page of the collection
-     * @returns {undefined}
-     */
-    async function getNextPage() {
-
-      pageNum++;
-
-      try {
-
-        let url = `https://www.discogs.com/user/${username}/collection?page=${pageNum}${rl.removePageParam(href)}`,
-            data = await fetch(`${url}`, { credentials: 'include' }),
-            response = await data.text(),
-            tr = '#collection tbody tr',
-            div = document.createElement('div'),
-            loader = document.querySelector('#de-next'),
-            markup,
-            noItems = '<h1 class="de-no-results">End of collection</h1>',
-            notes;
-
-        div.innerHTML = response;
-        // Modify .notes-show elements with custom class to hook on to
-        notes = [...div.querySelectorAll('.notes_show')];
-        notes.forEach(note => note.classList.add('de-notes-show'));
-        // Select subset of markup to pass into DOM
-        markup = div.querySelectorAll(tr);
-        /*
-          If the requested page number exceeds the total number of requestable
-          pages, Discogs will return the first page of the collection. So check
-          the page request number against the total number of pages and append
-          a notice if we've reached the end.
-        */
-        if ( pageNum <= Number(max) ) {
-
-          appendCollectionData(markup);
-          rl.updatePageParam(pageNum);
-        } else {
-
-          loader.remove();
-          document.querySelector('#collection table').insertAdjacentHTML('afterend', noItems);
-        }
-
-        hasLoaded = false;
-        // Call Open links in new tabs feature
-        window.modifyLinks();
-
-      } catch (err) {
-        return console.log('Error getting next page of collection', err);
-      }
-    }
-
-    // ========================================================
-    // DOM Setup / Init
-    // ========================================================
-    // Hide pagination
-    document.querySelectorAll('.pagination.bottom').forEach(el => { el.style.display = 'none'; });
-
-    if ( !document.getElementById('de-next') ) {
+    if (!document.getElementById('de-next')) {
 
       let loaderMarkup = `<div id="de-next" class="offers_box" >
                             <div class="de-next-text">
@@ -177,10 +276,14 @@ rl.ready(() => {
     window.addEventListener('scroll', () => {
       let kurtLoder = document.querySelector('#de-next');
 
-      if ( rl.isOnScreen(kurtLoder) && !hasLoaded ) {
+      if (rl.isOnScreen(kurtLoder) && !hasLoaded) {
         hasLoaded = true;
         return getNextPage();
       }
     });
   }
 });
+
+/***/ })
+
+/******/ });

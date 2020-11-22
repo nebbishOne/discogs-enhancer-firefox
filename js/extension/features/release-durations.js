@@ -1,3 +1,94 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 61);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 61:
+/***/ (function(module, exports) {
+
 /**
  *
  * Discogs Enhancer
@@ -23,10 +114,9 @@ rl.ready(() => {
 
   let hasPlaylist = document.querySelector('table.playlist');
 
-  if ( hasPlaylist && rl.pageIsNot('history') ) {
+  if (hasPlaylist && rl.pageIsNot('history')) {
 
-    let
-        arr = [],
+    let arr = [],
         emptyIndexTracks = false,
         hours,
         html,
@@ -54,7 +144,7 @@ rl.ready(() => {
           sec = 0,
           min = 1;
 
-      while ( p.length > 0 ) {
+      while (p.length > 0) {
 
         sec += min * Number(p.pop());
 
@@ -63,7 +153,6 @@ rl.ready(() => {
 
       return sec;
     }
-
 
     /**
      * Grabs tracktimes from a target and inserts them into an array
@@ -83,7 +172,6 @@ rl.ready(() => {
       });
     }
 
-
     // ========================================================
     // DOM Setup
     // ========================================================
@@ -98,17 +186,16 @@ rl.ready(() => {
       // If there are Index Tracks present but they are empty AND
       // they have subtracks WITH data, set `emptyIndexTracks` to true
       // and use the subtrack data to calculate the total playing time.
-      if ( trackTime === '' && subtracks !== '' ) {
+      if (trackTime === '' && subtracks !== '') {
 
         emptyIndexTracks = true;
         return;
 
-      // If there are Index Tracks and subtracks present but they are
-      // both empty, don't count them in the total.
-      } else if ( trackTime === '' && subtracks === '' ) {
+        // If there are Index Tracks and subtracks present but they are
+        // both empty, don't count them in the total.
+      } else if (trackTime === '' && subtracks === '') {
 
         return arr.push('0');
-
       } else {
 
         // Strip any times wrapped in parenthesis and add their numbers
@@ -120,14 +207,14 @@ rl.ready(() => {
     });
 
     // Grab the track times from the subtrack entries.
-    if ( emptyIndexTracks ) {
+    if (emptyIndexTracks) {
 
-      gatherTrackTimes( document.querySelectorAll('.tracklist_track.subtrack .tracklist_track_duration span') );
+      gatherTrackTimes(document.querySelectorAll('.tracklist_track.subtrack .tracklist_track_duration span'));
     }
 
     // Grab all track times from any td that is not a child of .subtrack
     // and add them to the array.
-    gatherTrackTimes( document.querySelectorAll('tr.tracklist_track.track td.tracklist_track_duration span') );
+    gatherTrackTimes(document.querySelectorAll('tr.tracklist_track.track td.tracklist_track_duration span'));
 
     // Calculate total seconds
     totalSeconds = arr.map(convertToSeconds).reduce((acc, next) => acc + next);
@@ -142,29 +229,30 @@ rl.ready(() => {
     seconds = totalSeconds % 60;
 
     // Assemble the result
-    if ( hours ) { result = hours + ':'; }
+    if (hours) {
+      result = hours + ':';
+    }
 
-    if ( minutes !== null ) { // 0 you falsy bastard!
+    if (minutes !== null) {
+      // 0 you falsy bastard!
 
-      if ( hours ) {
+      if (hours) {
 
-        resultMinutes = (minutes < 10 ? '0' + minutes : minutes);
+        resultMinutes = minutes < 10 ? '0' + minutes : minutes;
 
         result += resultMinutes + ':';
-
       } else {
 
         result += minutes + ':';
       }
     }
 
-    result += ( seconds < 10 ? '0' + seconds : seconds );
+    result += seconds < 10 ? '0' + seconds : seconds;
 
     // Don't insert any markup if necessary
-    if ( result === '0:00' || result === 'NaN:NaN' ) {
+    if (result === '0:00' || result === 'NaN:NaN') {
 
       return;
-
     } else {
 
       html = `<div class="section_content de-durations">
@@ -198,3 +286,7 @@ I gotcha grandma doin' backflips and tumbles
 https://www.discogs.com/Blackalicious-Melodica/master/32289
 // ========================================================
  */
+
+/***/ })
+
+/******/ });

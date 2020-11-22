@@ -1,3 +1,96 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 71);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 71:
+/***/ (function(module, exports) {
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 /**
  *
  * Discogs Enhancer
@@ -17,7 +110,7 @@
  * Testing: https://www.discogs.com/sell/release/2897713
  */
 rl.ready(() => {
-  if ( rl.pageIs('sellRelease') ) {
+  if (rl.pageIs('sellRelease')) {
 
     let extract,
         items,
@@ -38,35 +131,49 @@ rl.ready(() => {
      * @method init
      * @returns {undefined}
      */
-    window.releasePricesInit = async function init() {
+    window.releasePricesInit = (() => {
+      var _ref = _asyncToGenerator(function* () {
 
-      let url = `https://www.discogs.com/sell/post/${releaseId}`,
-          response = await fetch(url, { credentials: 'include' }),
-          data = await response.text(),
-          div = document.createElement('div'),
-          selector = '.shortcut_navigable .item_description .item_condition span:nth-child(2)';
+        let url = `https://www.discogs.com/sell/post/${releaseId}`,
+            response = yield fetch(url, { credentials: 'include' }),
+            data = yield response.text(),
+            div = document.createElement('div'),
+            selector = '.shortcut_navigable .item_description .item_condition span:nth-child(2)';
 
-      document.querySelectorAll('.de-price').forEach(e => e.remove());
+        document.querySelectorAll('.de-price').forEach(function (e) {
+          return e.remove();
+        });
 
-      // handle errors
-      if ( response.status !== 200 ) {
-        document.querySelectorAll('.de-price-preloader').forEach(e => e.remove());
-        handleErrors();
-        return;
+        // handle errors
+        if (response.status !== 200) {
+          document.querySelectorAll('.de-price-preloader').forEach(function (e) {
+            return e.remove();
+          });
+          handleErrors();
+          return;
+        }
+
+        items = [...document.querySelectorAll(selector)].map(function (e) {
+          return e.textContent.trim();
+        });
+
+        priceContainer = [];
+        prices = document.querySelectorAll('td.item_price span.price');
+        div.innerHTML = data;
+        nodeId = div.querySelector('#dsdata');
+        priceKey = rl.prepareObj(nodeId.outerHTML);
+
+        checkForSellerPermissions(div);
+        getPrices();
+        window.appendPrices();
+      });
+
+      function init() {
+        return _ref.apply(this, arguments);
       }
 
-      items = [...document.querySelectorAll(selector)].map(e => e.textContent.trim());
-
-      priceContainer = [];
-      prices = document.querySelectorAll('td.item_price span.price');
-      div.innerHTML = data;
-      nodeId = div.querySelector('#dsdata');
-      priceKey = rl.prepareObj(nodeId.outerHTML);
-
-      checkForSellerPermissions(div);
-      getPrices();
-      window.appendPrices();
-    };
+      return init;
+    })();
 
     /**
      * Collects the prices / conditions from the DOM
@@ -75,7 +182,7 @@ rl.ready(() => {
     function getPrices() {
       // Grab price / condition data from elements
       prices.forEach((price, i) => {
-        priceContainer.push({price: price.textContent, mediaCondition: items[i]});
+        priceContainer.push({ price: price.textContent, mediaCondition: items[i] });
       });
 
       rl.matchSymbols(priceContainer);
@@ -97,17 +204,17 @@ rl.ready(() => {
         // Since adding everlasting marketplace scrolling to individual release
         // pages, make sure the empty pagination <td> elements are not
         // included when this each loop runs...
-        if ( priceContainer[i] && priceContainer[i].convertedPrice ) {
+        if (priceContainer[i] && priceContainer[i].convertedPrice) {
 
-          let
-              actual = priceContainer[i].convertedPrice,
+          let actual = priceContainer[i].convertedPrice,
               colorizePrices = rl.options.colorize(),
               suggested = priceKey['post:suggestedPrices'][priceContainer[i].mediaCondition],
               difference = suggested - actual,
-              //
-              amount = '',
+
+          //
+          amount = '',
               markup,
-              percentage = ( (difference / suggested) * 100 ).toFixed(0),
+              percentage = (difference / suggested * 100).toFixed(0),
               printPrice = rl.localizeSuggestion(symbol, suggested),
               spanOuter = document.createElement('span'),
               threshold = rl.options.threshold() || 0;
@@ -119,7 +226,7 @@ rl.ready(() => {
 
           // No data from Discogs
           // ------------------------------------------------------
-          if ( !isFinite(percentage) ) {
+          if (!isFinite(percentage)) {
 
             spanOuter.className = 'converted_price de-price de-suggested-price';
             spanOuter.innerHTML = rl.css.noData;
@@ -131,13 +238,13 @@ rl.ready(() => {
           amount = rl.getAmountString(percentage, threshold);
           markup = makePriceMarkup(percentage, printPrice, amount);
 
-          if ( !listing.querySelector('.de-price') ) {
+          if (!listing.querySelector('.de-price')) {
             listing.insertAdjacentElement('beforeend', markup);
           }
 
           rl.fade(listing);
 
-          if ( amount !== 'more' && colorizePrices ) {
+          if (amount !== 'more' && colorizePrices) {
             listing.querySelector('.price').classList.add('green');
           }
         }
@@ -153,8 +260,7 @@ rl.ready(() => {
      */
     function makePriceMarkup(percentage, printPrice, qt) {
 
-      let
-          _class = qt === 'more' ? 'red' : 'green',
+      let _class = qt === 'more' ? 'red' : 'green',
           desc = qt.length ? 'around ' : 'within ',
           plusmn = qt.length ? '' : '\u00B1',
           spanOuter = document.createElement('span'),
@@ -188,8 +294,7 @@ rl.ready(() => {
     function checkForSellerPermissions(result) {
 
       // User does not have seller setup
-      if ( result.querySelector('#seller-paypal-verification')
-           && !priceKey['post:suggestedPrices'] ) {
+      if (result.querySelector('#seller-paypal-verification') && !priceKey['post:suggestedPrices']) {
 
         document.querySelectorAll('.de-price-preloader').forEach(e => e.remove());
 
@@ -216,7 +321,7 @@ rl.ready(() => {
           value = Math.abs(diff).toFixed(3),
           vAmt = diff > 0 ? ' less' : ' more';
 
-      if ( rl.options.debug() ) {
+      if (rl.options.debug()) {
 
         console.log('Suggested: ', sugg);
         console.log('Difference: ', value + ' ' + userCurrency + vAmt);
@@ -260,3 +365,7 @@ rl.ready(() => {
     window.releasePricesInit();
   }
 });
+
+/***/ })
+
+/******/ });
