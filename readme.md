@@ -1,8 +1,8 @@
 #### Project Overview
 
-100% vanilla JS Chrome extension for Discogs.com. Forked from [https://github.com/salcido/discogs-enhancer](https://github.com/salcido/discogs-enhancer).
+100% vanilla JS Firefox extension for Discogs.com. Forked from [https://github.com/salcido/discogs-enhancer](https://github.com/salcido/discogs-enhancer).
 
-Totally separate project, converting the awesome Chrome extension from that other project into a Firefox extension. Currently, it's not functional. 
+Totally separate project, converting the awesome Firefox extension from that other project into a Firefox extension. Currently, it's not functional. 
 
 
 #### Firefox Webstore Link
