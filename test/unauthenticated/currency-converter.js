@@ -17,7 +17,7 @@ let request = async function(page) {
   let gotRates;
   await page.select('#baseCurrency', 'AUD');
   await page.waitForResponse(response => {
-    if ( response.request().url() === 'https://discogs-enhancer.com/rates?base=AUD' ) {
+    if ( response.request().url() === '' ) {
       gotRates = true;
       return gotRates;
     }

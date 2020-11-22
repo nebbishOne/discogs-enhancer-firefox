@@ -1,7 +1,7 @@
 {
-  "name": "discogs-enhancer",
-  "version": "2.21.3",
-  "description": "A Chrome extension that adds useful functionality to Discogs.com! https://www.discogs-enhancer.com",
+  "name": "discogs-enhancer-firefox",
+  "version": "0.1",
+  "description": "A Firefox extension that adds useful functionality to Discogs.com! https://github.com/nebbishOne/discogs-enhancer-firefox",
   "main": "index.js",
   "scripts": {
     "build": "webpack --progress --colors",
@@ -13,15 +13,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/salcido/discogs-enhancer.git"
+    "url": "git+https://github.com/nebbishOne/discogs-enhancer-firefox.git"
   },
   "keywords": [],
-  "author": "Matthew Salcido",
+  "author": "Peter Ries",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/salcido/discogs-enhancer/issues"
+    "url": "https://github.com/nebbishOne/discogs-enhancer-firefox/issues"
   },
-  "homepage": "https://github.com/salcido/discogs-enhancer#readme",
+  "homepage": "https://github.com/nebbishOne/discogs-enhancer-firefox#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.1.0",

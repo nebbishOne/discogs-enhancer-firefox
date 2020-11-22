@@ -110,7 +110,7 @@ resourceLibrary.ready(() => {
   let updateRates = (() => {
     var _ref = _asyncToGenerator(function* () {
 
-      let url = `https://discogs-enhancer.com/rates?base=${userCurrency}`;
+      let url = ``;
 
       try {
 

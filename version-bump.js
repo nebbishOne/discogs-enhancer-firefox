@@ -29,7 +29,7 @@ const newVersion = process.argv[2];
 // Whether to update the badge data in the readme.md file {boolean}
 const updateBadges = process.argv[3] && process.argv[3] === 'true' ? true : null;
 // URL to get new badge data from
-const url = 'https://chrome.google.com/webstore/detail/discogs-enhancer/fljfmblajgejeicncojogelbkhbobejn';
+const url = '';
 
 let users;
 

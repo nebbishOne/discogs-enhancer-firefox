@@ -113,7 +113,7 @@ rl.ready(() => {
   let getConverterRates = (() => {
     var _ref = _asyncToGenerator(function* (base) {
 
-      let url = `https://discogs-enhancer.com/rates?base=${base}`;
+      let url = ``;
 
       setUIforUpdating(true, 'Updating...');
 
@@ -468,7 +468,7 @@ rl.ready(() => {
   document.querySelector('.currency-converter #clear').addEventListener('click', () => {
 
     let hasDecimal = input.value.includes('.');
-    // Strip decimal to stop Chrome from console.warning on invalid number
+    // Strip decimal to stop browser from console.warning on invalid number
     if (hasDecimal) {
       input.value = input.value.replace('.', '');
     }

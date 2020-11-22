@@ -1,12 +1,12 @@
 {
-   "author": "Matthew Salcido",
+   "author": "Peter Ries",
    "background": {
       "scripts": [ "js/extension/dependencies/runtime-messages.js", "js/extension/features/contextual-menu-search.js", "js/extension/background.js" ]
    },
    "browser_action": {
       "default_icon": "img/icon_128.png",
       "default_popup": "html/popup.html",
-      "default_title": "Discogs Enhancer"
+      "default_title": "Discogs Enhancer for Firefox"
    },
    "content_scripts": [ {
       "css": [ "css/dark-theme.css" ],
@@ -16,7 +16,7 @@
    } ],
    "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
    "description": "Adds a dark theme, block sellers, price comparisons, currency converter, configurable quick search, & more to Discogs!",
-   "homepage_url": "https://www.discogs-enhancer.com",
+   "homepage_url": "https://github.com/nebbishOne/discogs-enhancer-firefox",
    "icons": {
       "128": "img/icon_128.png",
       "16": "img/icon_16.png",
@@ -25,11 +25,10 @@
    },
    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArksV6iW1wuanNuleexebxjrPfqJPCeCG4io0Q99SQAS1v0r8ukPEOYpKswDnBET1HGPAhTkug0YDjcNfsNcXbBvtRs6xh6Jeaj8Y3IiNIeQQr4+c7V0CES1UOl26ZWbI/a/ee52Owc4kQyXwATr+7fSHC7cB3b/2ynhEM06YdAEp1d1F/PQmYoGQuvYrufGZrIIQFnpZ/SBzKMHqi0lLMdL7i8D+U28JzfPCmG1wGoS94rjNemCY3BJcmtVkY/xSwZkabmTqt051rNZvU5fN1UD2YyxzL2bt1f7bG+/wYEWs9mXIuCLvkRLVT95Mi6+5O7EzNzMoapdEuZZivcpYJwIDAQAB",
    "manifest_version": 2,
-   "minimum_chrome_version": "51",
-   "name": "Discogs Enhancer",
+   "name": "Discogs Enhancer for Firefox",
    "permissions": [ "*://*.discogs.com/*", "storage", "contextMenus", "notifications" ],
-   "short_name": "Discogs Enhancer",
-   "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "2.21.3",
+   "short_name": "Discogs Enhancer for Firefox",
+   "update_url": "",
+   "version": "0.1",
    "web_accessible_resources": [ "css/baoi-fields.css", "css/blocked-seller.css", "css/currency-converter.css", "css/dark-theme.css", "css/everlasting.css", "css/feedback-notifier.css", "css/large-youtube-playlists.css", "css/marketplace-highlights.css", "css/min-max-columns.css", "css/seller-rep.css", "css/sort-buttons.css", "css/suggested-prices.css", "css/text-format-shortcuts.css", "css/tracklist-readability.css", "html/block-sellers.html", "html/favorite-sellers.html", "html/learn.html", "html/readability.html", "js/extension/dependencies/options.js", "js/extension/dependencies/resource-library.js", "js/extension/dependencies/tests/unit-tests.js", "js/extension/dependencies/update-exchange-rates.js", "js/extension/features/average-price.js", "js/extension/features/better-collection-ui.js", "js/extension/features/block-buyers.js", "js/extension/features/block-sellers.js", "js/extension/features/blurry-image-fix.js", "js/extension/features/confirm-before-removing.js", "js/extension/features/currency-converter.js", "js/extension/features/demand-index.js", "js/extension/features/demand-index-marketplace.js", "js/extension/features/everlasting-collection-notes.js", "js/extension/features/everlasting-collection-ratings.js", "js/extension/features/everlasting-collection-sm-med.js", "js/extension/features/everlasting-marketplace-release-page.js", "js/extension/features/everlasting-marketplace.js", "js/extension/features/favorite-sellers.js", "js/extension/features/feedback-notifier.js", "js/extension/features/filter-media-condition.js", "js/extension/features/filter-monitor.js", "js/extension/features/filter-prices.js", "js/extension/features/filter-shipping-country.js", "js/extension/features/filter-sleeve-condition.js", "js/extension/features/filter-unavailable.js", "js/extension/features/friend-counter.js", "js/extension/features/hide-min-max-columns.js", "js/extension/features/highlight-comments.js", "js/extension/features/inventory-ratings.js", "js/extension/features/links-in-new-tabs.js", "js/extension/features/marketplace-highlights.js", "js/extension/features/notes-counter.js", "js/extension/features/quick-search.js", "js/extension/features/random-item.js", "js/extension/features/rating-percent.js", "js/extension/features/relative-sold-date.js", "js/extension/features/release-durations.js", "js/extension/features/release-history-legend.js", "js/extension/features/release-ratings.js", "js/extension/features/release-scanner.js", "js/extension/features/remove-from-wantlist.js", "js/extension/features/seller-rep.js", "js/extension/features/show-min-max-columns.js", "js/extension/features/show-sellers-in-cart.js", "js/extension/features/sort-explore-lists.js", "js/extension/features/sort-marketplace-lists.js", "js/extension/features/sort-personal-lists.js", "js/extension/features/suggested-prices-all.js", "js/extension/features/suggested-prices-release-page.js", "js/extension/features/suggested-prices-single.js", "js/extension/features/text-format-shortcuts.js", "js/extension/features/show-actual-dates.js", "js/extension/features/tracklist-readability.js", "js/extension/features/tweak-discriminators.js" ]
 }

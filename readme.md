@@ -1,11 +1,12 @@
-#### Project Overview
+# Project Overview
 
-100% vanilla JS Firefox extension for Discogs.com. Forked from [https://github.com/salcido/discogs-enhancer](https://github.com/salcido/discogs-enhancer).
+100% vanilla JS Firefox extension for Discogs.com. Forked from [https://github.com/nebbishOne/discogs-enhancer-firefox](https://github.com/nebbishOne/discogs-enhancer-firefox).
 
 Totally separate project, converting the awesome Firefox extension from that other project into a Firefox extension. Currently, it's not functional. 
 
 
-#### Firefox Webstore Link
+## Firefox Webstore Link
+
 (TODO)
 
 ## A Web Extension for Firefox
@@ -18,7 +19,6 @@ Discogs Enhancer adds extra features to both Discogs.com and Firefox. You will e
 * Compare suggested prices to listed prices
 * Contextual menu searching
 * Ask for confirmation before removing items from your Collection
-* Quick currency conversion
 * Dark Theme (WCAG 2.0 AA compliant)
 * Demand Index
 * Scan Artist/Label releases for comments
@@ -56,7 +56,6 @@ Discogs Enhancer adds extra features to both Discogs.com and Firefox. You will e
 ## Overview
 
 (TODO)
-
 
 ## Firefox **Fork** Author
 
